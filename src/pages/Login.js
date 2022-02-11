@@ -2,10 +2,11 @@
 
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+// import { FocusEventHandler } from "react";
+// ("./modules/user");
 
 import { Input, Text, Grid, Button } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
-// import { emailCheck } from "../shared/common";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -18,10 +19,7 @@ const Login = (props) => {
       window.alert("아이디 혹은 비밀번호를 입력해주세요");
       return;
     }
-    // if (!emailCheck(id)) {
-    //   window.alert("이메일 형식이 맞지 않습니다.");
-    //   return;
-    // }
+    
     dispatch(userActions.loginFB(id, pwd));
   };
   return (
@@ -53,7 +51,7 @@ const Login = (props) => {
           _onClick={() => {
             login();
           }}
-          _disabled={(id === "" || pwd === "" ? true  : false)}
+          _disabled={id === "" || pwd === "" ? true : false}
         >
           로그인하기
         </Button>
