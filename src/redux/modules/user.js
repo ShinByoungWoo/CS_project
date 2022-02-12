@@ -21,7 +21,7 @@ const initialState = {
   is_login: false,
 };
 
-// middleware actions
+//미들웨어
 const loginFB = (id, pwd) => {
   return function (dispatch, getState, { history }) {
     // auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then((res) => {
@@ -29,7 +29,6 @@ const loginFB = (id, pwd) => {
     //     .signInWithEmailAndPassword(id, pwd)
     //     .then((user) => {
     //       console.log(user);
-
     //       dispatch(
     //         setUser({
     //           user_name: user.user.displayName,
@@ -38,13 +37,11 @@ const loginFB = (id, pwd) => {
     //           uid: user.user.uid,
     //         })
     //       );
-
     //       history.push("/");
     //     })
     //     .catch((error) => {
     //       var errorCode = error.code;
     //       var errorMessage = error.message;
-
     //       console.log(errorCode, errorMessage);
     //     });
     // });
@@ -57,7 +54,6 @@ const signupFB = (id, pwd, user_name) => {
     //   .createUserWithEmailAndPassword(id, pwd)
     //   .then((user) => {
     //     console.log(user);
-
     //     auth.currentUser
     //       .updateProfile({
     //         displayName: user_name,
@@ -80,7 +76,6 @@ const signupFB = (id, pwd, user_name) => {
     //   .catch((error) => {
     //     var errorCode = error.code;
     //     var errorMessage = error.message;
-
     //     console.log(errorCode, errorMessage);
     //   });
   };

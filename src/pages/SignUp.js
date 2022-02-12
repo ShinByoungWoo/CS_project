@@ -4,8 +4,8 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { Grid, Text, Input, Button } from "../elements";
-import { actionCreators as userActions } from "../redux/modules/User";
-import { emailCheck } from "../shared/common";
+import { actionCreators as userActions } from "../redux/modules/user";
+// import { emailCheck } from "../shared/common";
 
 const SignUp = (props) => {
   const dispatch = useDispatch();
@@ -20,10 +20,10 @@ const SignUp = (props) => {
       return;
     }
 
-    if (!emailCheck(id)) {
-      window.alert("이메일 형식이 맞지 않습니다.");
-      return;
-    }
+    // if (!emailCheck(id)) {
+    //   window.alert("이메일 형식이 맞지 않습니다.");
+    //   return;
+    // }
 
     if (pwd !== pwd_check) {
       window.alert("비밀번호가 맞지 않습니다.");

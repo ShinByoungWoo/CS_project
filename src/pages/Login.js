@@ -19,9 +19,10 @@ const Login = (props) => {
       window.alert("아이디 혹은 비밀번호를 입력해주세요");
       return;
     }
-    
+
     dispatch(userActions.loginFB(id, pwd));
   };
+
   return (
     <React.Fragment>
       <Grid padding="16px">

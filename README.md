@@ -69,7 +69,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-
 react-router-dom@5.2.1
 
 yarn add redux react-redux
@@ -87,3 +86,6 @@ yarn add redux-actions
 yarn add redux-thunk
 
 connected-react-router@6.8.0
+
+//Mock API 사용위해서 설치
+yarn global add json-server
