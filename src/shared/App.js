@@ -7,12 +7,15 @@ import SignUp from "../pages/SignUp";
 import Header from "../components/Header";
 import NotFound from "../pages/NotFound";
 import InterviewList from "../pages/InterviweList";
+import QuestionWrite from "../pages/QuestionWrite";
+import AnswerWrite from "../pages/AnswerWrite";
 
 //
 import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import { Grid } from "../elements";
+
 
 function App() {
   return (
@@ -25,6 +28,8 @@ function App() {
             <Route path="/" exact component={InterviewList} />
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={SignUp} />
+            <Route path="/questionwrite" exact component={QuestionWrite} />
+            <Route path="/answerwrite" exact component={AnswerWrite} />
             <Route exact component={NotFound} />
           </Switch>
         </ConnectedRouter>
