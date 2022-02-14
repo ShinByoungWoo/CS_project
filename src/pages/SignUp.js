@@ -4,32 +4,32 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { Grid, Text, Input, Button } from "../elements";
-import { actionCreators as userActions } from "../redux/modules/User";
-import { emailCheck } from "../shared/common";
+import { actionCreators as userActions } from "../redux/modules/user";
+// import { emailCheck } from "../shared/common";
 
 const SignUp = (props) => {
   const dispatch = useDispatch();
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
-  const [pwd_check, setPwdCheck] = React.useState("");
-  const [user_name, setUserName] = React.useState("");
+  const [userPwConfire, setuserPwConfire] = React.useState("");
+  const [nickname, setnickname] = React.useState("");
 
   const signup = () => {
-    if (id === "" || pwd === "" || user_name === "") {
+    if (id === "" || pwd === "" || nickname === "") {
       window.alert("빈칸 모두 입력해주세요.");
       return;
     }
 
-    if (!emailCheck(id)) {
-      window.alert("이메일 형식이 맞지 않습니다.");
-      return;
-    }
+    // if (!emailCheck(id)) {
+    //   window.alert("이메일 형식이 맞지 않습니다.");
+    //   return;
+    // }
 
-    if (pwd !== pwd_check) {
+    if (pwd !== userPwConfire) {
       window.alert("비밀번호가 맞지 않습니다.");
       return;
     }
-    dispatch(userActions.signupFB(id, pwd, pwd_check, user_name));
+    dispatch(userActions.signupNJ(id, nickname, pwd, userPwConfire));
   };
 
   return (
@@ -54,7 +54,7 @@ const SignUp = (props) => {
             label="닉네임"
             placeholder="닉네임을 입력해주세요."
             _onChange={(e) => {
-              setUserName(e.target.value);
+              setnickname(e.target.value);
             }}
           />
         </Grid>
@@ -75,7 +75,7 @@ const SignUp = (props) => {
             label="비밀번호 확인"
             placeholder="비밀번호를 다시 입력해주세요"
             _onChange={(e) => {
-              setPwdCheck(e.target.value);
+              setuserPwConfire(e.target.value);
             }}
           />
         </Grid>

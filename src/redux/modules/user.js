@@ -1,88 +1,79 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import api from "../../shared/Api";
 
-// import { setCookie, deleteCookie } from "../../shared/Cookie";
+import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
 // import { auth } from "../../shared/firebase";
 // import firebase from "firebase/app";
 
-// actions
+//1. actions (액션 타입 만들기)
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
 const SET_USER = "SET_USER";
 
-// action creators
-const logOut = createAction(LOG_OUT, (user) => ({ user }));
+//2. action creators(액션 생성 함수 만들기)
+const logOut = createAction(LOG_OUT, (user) => ({ user })); //첫번째 인자로 액션타입을 넘겨주고 화살표함수로 우리가 쓰고 가져올 데이터를 넣어줌
 const getUser = createAction(GET_USER, (user) => ({ user }));
 const setUser = createAction(SET_USER, (user) => ({ user }));
 
-// initialState
+//3. initialState (기본 상태값을 임의로 지정한것)
 const initialState = {
   user: null,
   is_login: false,
 };
 
-// middleware actions
-const loginFB = (id, pwd) => {
-  return function (dispatch, getState, { history }) {
-    // auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then((res) => {
-    //   auth
-    //     .signInWithEmailAndPassword(id, pwd)
-    //     .then((user) => {
-    //       console.log(user);
+const user_initial = {
+  user_name: "dokyung",
+};
 
-    //       dispatch(
-    //         setUser({
-    //           user_name: user.user.displayName,
-    //           id: id,
-    //           user_profile: "",
-    //           uid: user.user.uid,
-    //         })
-    //       );
-
-    //       history.push("/");
-    //     })
-    //     .catch((error) => {
-    //       var errorCode = error.code;
-    //       var errorMessage = error.message;
-
-    //       console.log(errorCode, errorMessage);
-    //     });
-    // });
+//미들웨어
+const loginNJ = (id, pwd) => {
+  console.log("111");
+  return async function (dispatch, getState, { history }) {
+    console.log("2221");
+    const user = {
+      userId: id,
+      userPw: pwd,
+    };
+    await api
+      .post("/api/auth", user)
+      .then(function (response) {
+        console.log("333");
+        localStorage.setItem("nickname", response.data.nickname);
+        localStorage.setItem("token", response.data.token);
+        dispatch(setUser(response.data.nickname));
+        history.replace("/");
+      })
+      .catch((err) => {
+        console.log("444");
+        console.log(err);
+        window.alert(
+          "잘못된 아이디나 비밀번호 입니다. 다시 확인해주세요!(*⁰▿⁰*)"
+        );
+      });
   };
 };
 
-const signupFB = (id, pwd, user_name) => {
-  return function (dispatch, getState, { history }) {
-    // auth
-    //   .createUserWithEmailAndPassword(id, pwd)
-    //   .then((user) => {
-    //     console.log(user);
+const signupNJ = (id, nickname, pwd, userPwConfirm) => {
+  return async function (dispatch, getState, { history }) {
+    console.log(history);
+    const userInfo = {
+      userId: id,
+      nickname: nickname,
+      userPw: pwd,
+      userPwConfirm: userPwConfirm,
+    };
 
-    //     auth.currentUser
-    //       .updateProfile({
-    //         displayName: user_name,
-    //       })
-    //       .then(() => {
-    //         dispatch(
-    //           setUser({
-    //             user_name: user_name,
-    //             id: id,
-    //             user_profile: "",
-    //             uid: user.user.uid,
-    //           })
-    //         );
-    //         history.push("/");
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     var errorCode = error.code;
-    //     var errorMessage = error.message;
-
-    //     console.log(errorCode, errorMessage);
-    //   });
+    await api
+      .post("/api/signup", userInfo)
+      .then(function (response) {
+        history.push("/login");
+      })
+      .catch((err) => {
+        window.alert(
+          "이미 등록된 사용자 입니다! 아이디 또는 닉네임을 변경해주세요(*⁰▿⁰*)'"
+        );
+      });
   };
 };
 
@@ -114,32 +105,34 @@ const logoutFB = () => {
   };
 };
 
-// reducer
+//4. reducer (리덕스에 저장된 데이터를 변경하는 부분)
+// produce는 immer 사용하기 위한 부분이야
 export default handleActions(
   {
-    [SET_USER]: (state, action) =>
+    [SET_USER]: (state, action) => {
       produce(state, (draft) => {
-        // setCookie("is_login", "success");
+        setCookie("is_login", "success");
         draft.user = action.payload.user;
-        draft.is_login = true;
-      }),
+      });
+    },
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        // deleteCookie("is_login");
-        draft.user = null;
-        draft.is_login = false;
+        deleteCookie("is_login");
+        localStorage.removeItem("nickname");
+        localStorage.removeItem("token");
       }),
     [GET_USER]: (state, action) => produce(state, (draft) => {}),
   },
   initialState
 );
 
-// action creator export
+// 5. action creator export
 const actionCreators = {
+  setUser,
   logOut,
   getUser,
-  signupFB,
-  loginFB,
+  signupNJ,
+  loginNJ,
   loginCheckFB,
   logoutFB,
 };

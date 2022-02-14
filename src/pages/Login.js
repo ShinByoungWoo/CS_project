@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 // import { FocusEventHandler } from "react";
 // ("./modules/user");
 
+import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
+
 import { Input, Text, Grid, Button } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
 
@@ -19,9 +21,10 @@ const Login = (props) => {
       window.alert("아이디 혹은 비밀번호를 입력해주세요");
       return;
     }
-    
-    dispatch(userActions.loginFB(id, pwd));
+
+    dispatch(userActions.loginNJ({ id, pwd }));
   };
+
   return (
     <React.Fragment>
       <Grid padding="16px">
@@ -51,7 +54,7 @@ const Login = (props) => {
           _onClick={() => {
             login();
           }}
-          _disabled={id === "" || pwd === "" ? true : false}
+          // _disabled={id === "" || pwd === "" ? true : false}
         >
           로그인하기
         </Button>

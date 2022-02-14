@@ -1,16 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './shared/App';
-import reportWebVitals from './reportWebVitals';
-import {Provider} from 'react-redux';
-import store from './redux/configureStore';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./shared/App";
+import reportWebVitals from "./reportWebVitals";
+
+// Provider = 리덕스 넣어주는 함수를 먼저 import 해주세요
+import { Provider } from "react-redux";
+import store from "./redux/configureStore";
 
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+    <App />
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

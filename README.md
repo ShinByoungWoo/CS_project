@@ -69,9 +69,11 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
+//주소 연결 할 때 쓰는것
+yarn add react-router-dom@5.2.1
 
-react-router-dom@5.2.1
-
+// 상태관리 라이브러리 리덕스 설치
+// State,Action,ActionCreator 자주 쓰는 친구들
 yarn add redux react-redux
 
 yarn add moment
@@ -87,3 +89,11 @@ yarn add redux-actions
 yarn add redux-thunk
 
 connected-react-router@6.8.0
+
+//Mock API 사용위해서 설치
+yarn global add json-server
+
+yarn add immer redux-actions
+yarn add redux-logger
+yarn add axios
+yarn add react-icons
