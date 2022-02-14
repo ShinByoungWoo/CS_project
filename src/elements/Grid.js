@@ -10,6 +10,7 @@ const Grid = (props) => {
     backgroundcolor,
     children,
     center,
+    border,
     _onClick,
   } = props;
 
@@ -20,6 +21,7 @@ const Grid = (props) => {
     padding: padding,
     backgroundcolor: backgroundcolor,
     center: center,
+    border: border,
   };
 
   return (
@@ -39,22 +41,26 @@ Grid.defaultProps = {
   margin: false,
   backgroundcolor: false,
   center: false,
+  border: false,
   _onClick: () => {},
 };
 
 const GridBox = styled.div`
   width: ${(props) => props.width};
   height: 100%;
+  border: ${(props) => props.border};
   box-sizing: border-box;
-  ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
-  ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
-  ${(props) =>
-    props.backgroundcolor ? `background-color: ${props.backgroundcolor};` : ""}
-  ${(props) =>
-    props.is_flex
-      ? `display: flex; align-items: center; justify-content: space-between; `
-      : ""}
-  ${(props) => (props.center ? `text-align: center` : "")}
+    ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
+    ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
+    ${(props) =>
+      props.backgroundcolor
+        ? `background-color: ${props.backgroundcolor};`
+        : ""}
+    ${(props) =>
+      props.is_flex
+        ? `display: flex; align-items: center; justify-content: space-between; `
+        : ""}
+    ${(props) => (props.center ? `text-align: center` : "")};
 `;
 
 export default Grid;
