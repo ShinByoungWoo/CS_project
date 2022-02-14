@@ -13,18 +13,22 @@ import { FiEdit } from "react-icons/fi";
 import styled from "styled-components";
 
 const Header = (props) => {
-  //cookie로 로그인 헤더부분 바뀌는 부분입니다 (서버 연결 시 해당부분 필요없음)
-
-  const is_login = useSelector((state) => state.user.is_login);
-  const dispatch = useDispatch();
-
   // firebase 세션키 가져오는 부분이라 주석처리
+  // const is_login = useSelector((state) => state.user.is_login);
   // const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
   // const is_session = sessionStorage.getItem(_session_key) ? true : false;
-
   // console.log(is_session);
 
-  if (is_login) {
+  // 토큰값이 있으면, 로그인/로그아웃 화면 보여주는 곳!
+  const dispatch = useDispatch();
+
+  const local_token = localStorage.getItem("token");
+  const local_nickname = localStorage.getItem("nickname");
+
+  // const item = useSelector((state) => state.item.edit_item.contents);
+  // const is_edit = item.id ? true : false;
+
+  if (local_token) {
     return (
       <React.Fragment>
         <Grid is_flex padding="16px 0px 16px 0px">
@@ -35,10 +39,11 @@ const Header = (props) => {
           </Grid>
 
           <Grid is_flex padding="16px 0px 16px 0px">
+            <Text>{local_nickname}</Text>
             <Button
               text="로그아웃"
               _onClick={() => {
-                dispatch(userActions.logOut({}));
+                dispatch(userActions.logOut());
               }}
             ></Button>
           </Grid>
@@ -71,9 +76,7 @@ const Header = (props) => {
           ></Button>
         </Grid>
       </Grid>
-      <Icon>
-        <FiEdit size="100px"></FiEdit>
-      </Icon>
+      <Icon></Icon>
     </React.Fragment>
   );
 };

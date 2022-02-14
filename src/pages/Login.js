@@ -21,8 +21,7 @@ const Login = (props) => {
       window.alert("아이디 혹은 비밀번호를 입력해주세요");
       return;
     }
-
-    dispatch(userActions.loginNJ({ id, pwd }));
+    dispatch(userActions.loginNJ(id, pwd));
   };
 
   return (
@@ -51,9 +50,7 @@ const Login = (props) => {
           />
         </Grid>
         <Button
-          _onClick={() => {
-            login();
-          }}
+          _onClick={login}
           // _disabled={id === "" || pwd === "" ? true : false}
         >
           로그인하기

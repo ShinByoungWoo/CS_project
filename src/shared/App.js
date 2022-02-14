@@ -17,7 +17,6 @@ import { Route, Switch } from "react-router-dom";
 import { history } from "../redux/configureStore";
 import { Grid } from "../elements";
 
-
 function App() {
   return (
     // switch 사용해서 잘못된 주소로는 연결 안되도록 구현

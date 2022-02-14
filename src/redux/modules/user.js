@@ -38,7 +38,7 @@ const loginNJ = (id, pwd) => {
     await api
       .post("/api/auth", user)
       .then(function (response) {
-        console.log("333");
+        console.log("3333");
         localStorage.setItem("nickname", response.data.nickname);
         localStorage.setItem("token", response.data.token);
         dispatch(setUser(response.data.nickname));

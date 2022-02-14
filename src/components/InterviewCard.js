@@ -3,6 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Button, Text } from "../elements";
+import { FiEdit } from "react-icons/fi";
 
 const InterviewCard = (props) => {
   //  어떤 정보들이 들어가는지 와이어프레임보고 미리 한판 그려보기
