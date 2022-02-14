@@ -12,6 +12,7 @@ const Grid = (props) => {
     center,
     border,
     _onClick,
+    borderradius,
   } = props;
 
   const styles = {
@@ -22,6 +23,7 @@ const Grid = (props) => {
     backgroundcolor: backgroundcolor,
     center: center,
     border: border,
+    borderradius: borderradius,
   };
 
   return (
@@ -43,6 +45,7 @@ Grid.defaultProps = {
   center: false,
   border: false,
   _onClick: () => {},
+  borderradius: false,
 };
 
 const GridBox = styled.div`
@@ -61,6 +64,7 @@ const GridBox = styled.div`
         ? `display: flex; align-items: center; justify-content: space-between; `
         : ""}
     ${(props) => (props.center ? `text-align: center` : "")};
+    ${(props) => (props.borderradius ? `border-radius: ${props.borderradius}` : "")}
 `;
 
 export default Grid;

@@ -3,15 +3,15 @@ import styled from "styled-components";
 import { Text, Grid } from "./index";
 
 const Input = (props) => {
-  const { label, placeholder, _onChange, type, multiLine, value } = props;
+  const { label, placeholder, _onChange, type, multiLine, width } = props;
 
   if (multiLine) {
     return (
       <Grid>
         {label && <Text margin="0px">{label}</Text>}
         <EleTextArea
+          type={type}
           rows={10}
-          value={value}
           placeholder={placeholder}
           onChange={_onChange}
         />
@@ -27,6 +27,7 @@ const Input = (props) => {
           type={type}
           placeholder={placeholder}
           onChange={_onChange}
+          width={width}
         />
       </Grid>
     </React.Fragment>
@@ -40,11 +41,12 @@ Input.defaultProps = {
   type: "text",
   multiLine: false,
   value: "",
+  width: "100%",
 };
 
 const EleInput = styled.input`
   border: 1px solid #212121;
-  width: 100%;
+  width: ${(props) => props.width};
   padding: 12px 4px;
   box-sizing: border-box;
 `;
