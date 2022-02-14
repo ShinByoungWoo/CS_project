@@ -9,6 +9,7 @@ import NotFound from "../pages/NotFound";
 import InterviewList from "../pages/InterviweList";
 import QuestionWrite from "../pages/QuestionWrite";
 import AnswerWrite from "../pages/AnswerWrite";
+import Detail from "../pages/Detail";
 
 //
 import { ConnectedRouter } from "connected-react-router";
@@ -30,6 +31,7 @@ function App() {
             <Route path="/signup" exact component={SignUp} />
             <Route path="/questionwrite" exact component={QuestionWrite} />
             <Route path="/answerwrite" exact component={AnswerWrite} />
+            <Route path="/detail" exact component={Detail} />
             <Route exact component={NotFound} />
           </Switch>
         </ConnectedRouter>
