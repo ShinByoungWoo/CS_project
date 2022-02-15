@@ -14,7 +14,7 @@ import styled from "styled-components";
 
 const Header = (props) => {
   // firebase 세션키 가져오는 부분이라 주석처리
-  // const is_login = useSelector((state) => state.user.is_login);
+
   // const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
   // const is_session = sessionStorage.getItem(_session_key) ? true : false;
   // console.log(is_session);
@@ -22,11 +22,16 @@ const Header = (props) => {
   // 토큰값이 있으면, 로그인/로그아웃 화면 보여주는 곳!
   const dispatch = useDispatch();
 
-  const local_token = localStorage.getItem("token");
+  const local_token = localStorage.getItem("token") ? true : false;
   const local_nickname = localStorage.getItem("nickname");
+  const is_login = useSelector((state) => state.user.is_login);
+
+  React.useEffect(() => {}, [is_login]);
 
   // const item = useSelector((state) => state.item.edit_item.contents);
   // const is_edit = item.id ? true : false;
+  console.log(local_token);
+  console.log(is_login);
 
   if (local_token) {
     return (

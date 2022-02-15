@@ -38,10 +38,10 @@ const loginNJ = (id, pwd) => {
     await api
       .post("/api/auth", user)
       .then(function (response) {
-        localStorage.setItem("nickname", response.data.nickname);
+        // localStorage.setItem("nickname", response.data.nickname);
         localStorage.setItem("token", response.data.token);
         dispatch(setUser(response.data.nickname));
-        // window.alert(response.data.message);
+        alert(response.data.message);
         // console.log(response.data.message);
         history.replace("/");
       })
@@ -110,8 +110,9 @@ export default handleActions(
   {
     [SET_USER]: (state, action) => {
       produce(state, (draft) => {
-        setCookie("is_login", "success");
+        // setCookie("is_login", "true");
         draft.user = action.payload.user;
+        draft.is_login = true;
       });
     },
     [LOG_OUT]: (state, action) =>
