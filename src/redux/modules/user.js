@@ -38,18 +38,17 @@ const loginNJ = (id, pwd) => {
     await api
       .post("/api/auth", user)
       .then(function (response) {
-        console.log("3333");
         localStorage.setItem("nickname", response.data.nickname);
         localStorage.setItem("token", response.data.token);
         dispatch(setUser(response.data.nickname));
+        // window.alert(response.data.message);
+        // console.log(response.data.message);
         history.replace("/");
       })
-      .catch((err) => {
+      .catch((error) => {
         console.log("444");
-        console.log(err);
-        window.alert(
-          "잘못된 아이디나 비밀번호 입니다. 다시 확인해주세요!(*⁰▿⁰*)"
-        );
+        // console.log(err);
+        window.alert(error.response.data.errorMessage);
       });
   };
 };
@@ -69,10 +68,8 @@ const signupNJ = (id, nickname, pwd, userPwConfirm) => {
       .then(function (response) {
         history.push("/login");
       })
-      .catch((err) => {
-        window.alert(
-          "이미 등록된 사용자 입니다! 아이디 또는 닉네임을 변경해주세요(*⁰▿⁰*)'"
-        );
+      .catch((error) => {
+        window.alert(error.response.data.errorMessage);
       });
   };
 };
@@ -96,12 +93,14 @@ const loginCheckFB = () => {
   };
 };
 
-const logoutFB = () => {
+//로그아웃
+const logoutNJ = () => {
   return function (dispatch, getState, { history }) {
-    // auth.signOut().then(() => {
-    //   dispatch(logOut());
-    //   history.replace("/login");
-    // });
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+
+    dispatch(logOut());
+    window.location.replace("/");
   };
 };
 
@@ -117,9 +116,8 @@ export default handleActions(
     },
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
-        deleteCookie("is_login");
-        localStorage.removeItem("nickname");
-        localStorage.removeItem("token");
+        draft.user = null;
+        draft.is_login = false;
       }),
     [GET_USER]: (state, action) => produce(state, (draft) => {}),
   },
@@ -134,7 +132,7 @@ const actionCreators = {
   signupNJ,
   loginNJ,
   loginCheckFB,
-  logoutFB,
+  logoutNJ,
 };
 
 export { actionCreators };
