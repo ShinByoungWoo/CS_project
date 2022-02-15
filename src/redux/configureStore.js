@@ -4,7 +4,6 @@ import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
 import user from "./modules/user";
-import post from "./modules/post";
 import question from "./modules/question";
 import answer from "./modules/answer";
 
@@ -15,7 +14,6 @@ export const history = createBrowserHistory();
 // 나중에 리듀서를 여러개 만들게 되면 여기에 하나씩 추가하기
 const rootReducer = combineReducers({
   user: user,
-  post: post,
   answer: answer,
   question: question,
   router: connectRouter(history),

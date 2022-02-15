@@ -12,8 +12,8 @@ const LOAD_QUESTION = "QUESTION_LOAD";
 
 
 //action creator
-const addQuestion = createAction(ADD_QUESTION, (question) => ({ question }));
-// const loadQuestions = createAction(LOAD_QUESTION, (question) => ({ question })); 
+const addQuestion = createAction(ADD_QUESTION, (questions) => ({ questions }));
+const loadQuestions = createAction(LOAD_QUESTION, (questions) => ({ questions }));
 // const editQuestion = createAction(EDIT_QUESTION, (questionId) => ({ questionId }));
 // const deleteQuestion = createAction(DELETE_QUESTION, (questionId) => ({ questionId }));
 
@@ -23,12 +23,15 @@ const initialState = {
 };
 const initalQuestion = {
     questionTitle:"",
-    questionDate: moment().format('YYYY-MM-DD')
+    questionDate: moment().format('YYYY-MM-DD'),
+	questionId:"",
+	nickname:"",
     } 
 
 //axios
+// 답변카드 서버로 보내는 작업 
 export const addQuestionDB = (qTitle,qDate) => {
-	return function (dispatch, getState, { history }) {
+	return (dispatch, getState, { history }) => {
 		const TOKEN = localStorage.getItem("token");
 		instance
             .post('/api/questions',{
@@ -46,39 +49,38 @@ export const addQuestionDB = (qTitle,qDate) => {
 	};
 };
 
-// export const loadQuestionDB = () => {
-// 	instance.get('/api/questions',
-// 	{questions: { _id, questionTitle, author, date }
-// 		},
-// 	{headers: { 'Authorization': '내 토큰 보내주기' },} // 누가 요청했는 지 알려줍니다. (config에서 해요!)
-// ).then(() => {
-//     console.log(response);
-//   })
-//   .catch(function (error) {
-//     console.log(error);
-//   });
-// };
-
+//면접 질문 리스트 전체 불러오기
+export const loadQuestionDB = ()=> {
+	return (dispatch, getState, { history }) => {
+	instance
+	.get('/api/questions')
+	.then((response)=>{
+		console.log(response.data.questions)
+		dispatch(loadQuestions(response.data.questions));
+	})
+  	.catch((err) => {
+    	console.log(err);
+  	});
+	};
+};
 
 //reducer
 export default handleActions(
     {
         [ADD_QUESTION] : (state,action) => produce(state,(draft) => {
-                draft.questions = action.payload.questionList
-                console.log(draft.questions)
+			draft.list.push(action.payload.questions);
         }),
-		[LOAD_QUESTION] : (state,action) => produce(state,(draft) => {
-			draft.questions = action.payload.questionList
-			console.log(draft.questions)
-	})
+		[LOAD_QUESTION] : (state,action) => {
+			return {...state,list: action.payload.questions};
+		},
     }
 ,initialState)
 
 const actionCreators = {
     addQuestion,
     addQuestionDB,
-	// loadQuestion,
-	// loadQuestionDB,
+	loadQuestions,
+	loadQuestionDB,
 }
 
 export {actionCreators}

@@ -30,7 +30,7 @@ function App() {
             <Route path="/signup" exact component={SignUp} />
             <Route path="/questionwrite" exact component={QuestionWrite} />
             <Route path="/answerwrite" exact component={AnswerWrite} />
-            <Route path="/detail" exact component={Detail} />
+            <Route path="/detail/:id" component={Detail} />
             <Route exact component={NotFound} />
           </Switch>
         </ConnectedRouter>

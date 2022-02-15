@@ -3,22 +3,28 @@
 import React from "react";
 import styled from "styled-components";
 import { Button, Text } from "../elements";
-import { FiEdit } from "react-icons/fi";
+
+import { useDispatch } from 'react-redux';
+import { history } from "../redux/configureStore";
 
 const InterviewCard = (props) => {
-  //  어떤 정보들이 들어가는지 와이어프레임보고 미리 한판 그려보기
+  console.log(props)
+  const dispatch = useDispatch();
+  // const { history } = props;
   return (
     <Container>
-      <Card>
-        <Cardhead>
-          <Text>2022-02-13</Text>
-          <Text>이도경</Text>
-        </Cardhead>
-        <Questionbox>
-          <Text>리액트에서 리덕스를 왜 사용하나요?</Text>
-        </Questionbox>
-        <Button text="다른사람은 이렇게 답변했어요!"></Button>
-      </Card>
+          <Card >
+          <Cardhead>
+            <Text>{props.date}</Text>
+            <Text>{props.nickname}</Text>
+          </Cardhead>
+          <Questionbox>
+            <Text>{props.questionTitle}</Text>
+          </Questionbox>
+          <Button text="다른사람은 이렇게 답변했어요!" _onClick={() => {
+                    history.push(`/detail/${props._id}`);
+                  }}></Button>
+        </Card>
     </Container>
   );
 };

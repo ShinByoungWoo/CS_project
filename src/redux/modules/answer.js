@@ -40,7 +40,7 @@ export const addAnswerDB = (answer) => {
 //병우추가
 const getQuestionDB = (question_id) => {
   return function (dispatch, getState, { history }) {
-    apis
+    instance
       .answers(question_id)
       .then(() => {
         dispatch(getQuestion(question_id));
