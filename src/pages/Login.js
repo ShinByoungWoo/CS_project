@@ -33,7 +33,7 @@ const Login = (props) => {
             로그인
           </Text>
           <Container>
-            <Inputbox
+            <Input
               label="아이디"
               placeholder="아이디를 입력해주세요"
               _onChange={(e) => {
@@ -42,7 +42,7 @@ const Login = (props) => {
             />
           </Container>
           <Container>
-            <Inputbox
+            <Input
               label="비밀번호"
               type="password"
               placeholder="비밀번호를 입력해주세요"

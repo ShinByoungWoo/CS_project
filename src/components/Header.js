@@ -8,9 +8,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { Grid, Text, Button } from "../elements";
 import { history } from "../redux/configureStore";
 import { getCookie, deleteCookie } from "../shared/Cookie";
-import { BiEdit } from "react-icons/bi";
 
-import { FcCalendar } from "react-icons/bi";
 import styled from "styled-components";
 
 const Header = (props) => {
@@ -72,14 +70,6 @@ const Header = (props) => {
               ></Button>
             </Grid>
           </Grid>
-
-          <Btn
-            onClick={() => {
-              history.push("/QuestionWrite");
-            }}
-          >
-            <BiEdit size="70px" />
-          </Btn>
         </Container>
       </React.Fragment>
     );
@@ -135,10 +125,4 @@ const Card = styled.div`
   }
 `;
 
-const Btn = styled.div`
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  margin: 30px;
-`;
 export default Header;

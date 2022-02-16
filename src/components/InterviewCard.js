@@ -23,10 +23,10 @@ const InterviewCard = (props) => {
         <Text>{props.nickname}</Text>
       </Cardhead>
       <Questionbox>
-        <Text>{props.questionTitle}</Text>
+        <Text size="25px">{props.questionTitle}</Text>
       </Questionbox>
       <Btn
-        _onClick={() => {
+        onClick={() => {
           history.push(`/detail/${props._id}`);
         }}
       >
@@ -44,15 +44,15 @@ InterviewCard.defaultProps = {
 };
 
 //스타일 잡아주기 !
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap-reverse;
-  gap: 30px;
-  margin: 5px;
-  padding: 30px;
-  justify-content: center; /* 수평 가운데 정렬 */
-`;
+// const Container = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: wrap-reverse;
+//   gap: 30px;
+//   margin: 5px;
+//   padding: 30px;
+//   justify-content: center; /* 수평 가운데 정렬 */
+// `;
 
 const Card = styled.div`
   position: relative;
@@ -77,7 +77,7 @@ const Cardhead = styled.div`
 
 const Questionbox = styled.div`
   height: 150px;
-  padding-top: 50px;
+  padding-top: 25px;
   box-sizing: border-box;
   @media only screen and (max-width: 768px) {
     min-width: 330px;

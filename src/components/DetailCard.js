@@ -5,7 +5,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as answerActions } from "../redux/modules/answer";
-import { Text, Grid, Button } from "../elements";
+
+import { Text } from "../elements";
 import { useHistory } from "react-router";
 
 import { CgChevronDoubleUp } from "react-icons/cg";
@@ -14,59 +15,23 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 const DetailCard = (props) => {
-  console.log(props);
-
-  const answer_id = props;
-  console.log(answer_id);
-
   const dispatch = useDispatch();
-  //   const { history } = props;
+  // const { history } = props;
   const history = useHistory();
+
+  //좋아요 필요기능
   const [likeState, setLikeState] = React.useState("");
   const [post, setPost] = React.useState("");
-  console.log(post, setPost);
-  console.log(likeState, setLikeState);
 
-  const postlist = useSelector((state) => state.user.user);
-  console.log(postlist); // null
+  const questionList = useSelector((state) => state.question.list);
+  // console.log(questionList);
 
-  React.useEffect(() => {
-    // dispatch(likeActions.getAnswerDB());
-  }, []);
-
-  const quest_lists = [
-    {
-      authorization: "Bearer token",
-      questionTitle: "cs란 무엇인가요",
-    },
-  ];
-
-  // useEffect(() => {
-  //   // 리스트 불러오기
-  //   dispatch(answerActions.getQuestionDB());
-  // }, []);
+  const answerList = useSelector((state) => state.answer.list);
+  // console.log(answerList);
 
   return (
     <React.Fragment>
       <Wrap>
-        {/* 작성자와 답변하기 버튼 , 질문 내용 */}
-        <Grid padding={"16px"} margin={"40px 0px"} is_flex>
-          <Text bold size={"16px"}>
-            작성자: {props.nickname}
-          </Text>
-          <Text size={"32px"} bold>
-            질문내용
-          </Text>
-          <Button
-            width={"100px"}
-            _onClick={() => {
-              history.push("/answerwrite");
-            }}
-          >
-            답변하기
-          </Button>
-        </Grid>
-
         {/* 카드 생성구역 */}
 
         <QuestionCard>
@@ -75,10 +40,10 @@ const DetailCard = (props) => {
             <Btn
               style={{ display: "flex" }}
               onClick={() => {
-                setLikeState(false);
-                const newPostLikeCnt = post.postLikeCnt - 1;
-                setPost({ ...post, postLikeCnt: newPostLikeCnt });
-                dispatch(likeActions.toggleLikeDB(answer_id, false));
+                // setLikeState(false);
+                // const newPostLikeCnt = post.postLikeCnt - 1;
+                // setPost({ ...post, postLikeCnt: newPostLikeCnt });
+                // dispatch(likeActions.toggleLikeDB(answer_id, false));
               }}
             >
               <Text size="15px" margin="0px">
@@ -91,10 +56,10 @@ const DetailCard = (props) => {
             <Btn
               style={{ display: "flex" }}
               onClick={() => {
-                setLikeState(true);
-                const newPostLikeCnt = post.postLikeCnt - 1;
-                setPost({ ...post, postLikeCnt: newPostLikeCnt });
-                dispatch(likeActions.toggleLikeDB(answer_id, false));
+                // setLikeState(true);
+                // const newPostLikeCnt = post.postLikeCnt - 1;
+                // setPost({ ...post, postLikeCnt: newPostLikeCnt });
+                // dispatch(likeActions.toggleLikeDB(answer_id, false));
               }}
             >
               <Text size="15px" margin="0px">
@@ -106,7 +71,7 @@ const DetailCard = (props) => {
             {/* 수정버튼 */}
             <Btn
               onClick={() => {
-                history.push("/answerwrite");
+                history.push(`/detail/${props._id}/answerwrite`);
               }}
             >
               <FiEdit className="edit" />
@@ -121,25 +86,25 @@ const DetailCard = (props) => {
               <RiDeleteBin6Line className="delete" />
             </Btn>
           </BtnGroup>
-          <Text bold>카드 질문 내용</Text>
+          <Text bold>{props.answer}</Text>
         </QuestionCard>
-
-        <TopBtn
-          onClick={() => {
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-          }}
-        >
-          <CgChevronDoubleUp />
-        </TopBtn>
       </Wrap>
+
+      <TopBtn
+        onClick={() => {
+          window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+        }}
+      >
+        <CgChevronDoubleUp />
+      </TopBtn>
     </React.Fragment>
   );
 };
 
 DetailCard.defaultProps = {
   title: "질문내용",
-  usernick: "병우병우머리머리",
-  content: "카드 속 질문내용",
+  usernick: "머리머리",
+  content: "카드 속 답변내용",
   post_date: "2022-02-15 03:00:00",
   postLikeCnt: 0,
   is_me: false,

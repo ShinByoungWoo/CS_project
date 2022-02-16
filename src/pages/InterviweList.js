@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as questionActions } from "../redux/modules/question";
 import styled from "styled-components";
 
+import { BiEdit } from "react-icons/bi";
+
 const InterviewList = (props) => {
   const dispatch = useDispatch();
 
@@ -24,6 +26,13 @@ const InterviewList = (props) => {
           })}
           ;
         </PostContainer>
+        <Btn
+          onClick={() => {
+            history.push("/QuestionWrite");
+          }}
+        >
+          <BiEdit size="70px" />
+        </Btn>
       </Container>
     </React.Fragment>
   );
@@ -47,4 +56,5 @@ const Btn = styled.div`
   right: 0px;
   margin: 30px;
 `;
+
 export default InterviewList;

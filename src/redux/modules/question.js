@@ -30,8 +30,8 @@ const initalQuestion = {
 };
 
 //axios
-// 답변카드 서버로 보내는 작업
-export const addQuestionDB = (qTitle, qDate) => {
+// 질문카드 서버로 보내는 작업
+export const addQuestionDB = (qTitle) => {
   return (dispatch, getState, { history }) => {
     const TOKEN = localStorage.getItem("token");
     instance
@@ -39,16 +39,16 @@ export const addQuestionDB = (qTitle, qDate) => {
         "/api/questions",
         {
           questionTitle: qTitle,
-          questionDate: qDate,
         },
         { headers: { authorization: `Bearer ${TOKEN}` } }
       )
-      .then(() => {
+      .then((res) => {
         dispatch(addQuestion());
+
         history.push("/");
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err, "질문생성오류");
       });
   };
 };
@@ -63,7 +63,7 @@ export const loadQuestionDB = () => {
         dispatch(loadQuestions(response.data.questions));
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err, "질문 불러오기 오류");
       });
   };
 };
