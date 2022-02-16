@@ -39,8 +39,9 @@ export const addQuestionDB = (qTitle,qDate) => {
 				questionDate: qDate,
 				},
 				{headers: { authorization: `Bearer ${TOKEN}` },})
-			.then(() => {
+			.then((res) => {
 				dispatch(addQuestion());
+				
 				history.push('/');
 			})
 			.catch((err) => {
@@ -71,7 +72,14 @@ export default handleActions(
 			draft.list.push(action.payload.questions);
         }),
 		[LOAD_QUESTION] : (state,action) => {
-			return {...state,list: action.payload.questions};
+			const qlist = action.payload.questions 
+			let qId = qlist.map(a => a._id); 
+			// console.log(qlist) 
+			// console.log(qId)
+			return (
+				{...state,list: action.payload.questions, qId}
+			)
+			
 		},
     }
 ,initialState)

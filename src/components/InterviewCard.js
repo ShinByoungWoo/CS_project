@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { history } from "../redux/configureStore";
 
 const InterviewCard = (props) => {
-  console.log(props)
+  // console.log(props)
   const dispatch = useDispatch();
   // const { history } = props;
   return (
