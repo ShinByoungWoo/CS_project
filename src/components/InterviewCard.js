@@ -3,29 +3,36 @@
 import React from "react";
 import styled from "styled-components";
 import { Button, Text } from "../elements";
+import { FcCalendar } from "react-icons/fc";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { history } from "../redux/configureStore";
 
 const InterviewCard = (props) => {
-  // console.log(props)
+  // console.log(props);
   const dispatch = useDispatch();
+
   // const { history } = props;
   return (
-    <Container>
-          <Card >
-          <Cardhead>
-            <Text>{props.date}</Text>
-            <Text>{props.nickname}</Text>
-          </Cardhead>
-          <Questionbox>
-            <Text>{props.questionTitle}</Text>
-          </Questionbox>
-          <Button text="다른사람은 이렇게 답변했어요!" _onClick={() => {
-                    history.push(`/detail/${props._id}`);
-                  }}></Button>
-        </Card>
-    </Container>
+    <Card>
+      <Cardhead>
+        <Text>
+          <FcCalendar size="20px" />
+          {props.date}
+        </Text>
+        <Text>{props.nickname}</Text>
+      </Cardhead>
+      <Questionbox>
+        <Text>{props.questionTitle}</Text>
+      </Questionbox>
+      <Btn
+        _onClick={() => {
+          history.push(`/detail/${props._id}`);
+        }}
+      >
+        다른사람 답변보러라기
+      </Btn>
+    </Card>
   );
 };
 
@@ -39,9 +46,11 @@ InterviewCard.defaultProps = {
 //스타일 잡아주기 !
 const Container = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
   gap: 30px;
-  margin: 60px;
+  margin: 5px;
+  padding: 30px;
   justify-content: center; /* 수평 가운데 정렬 */
 `;
 
@@ -50,10 +59,11 @@ const Card = styled.div`
   width: 350px;
   height: 250px;
   padding: 20px;
-  border: 2px solid black;
+  border: 3px solid black;
   border-radius: 10px;
   text-align: center;
   font-size: 20px;
+  background-color: #fdfcdc;
   @media only screen and (max-width: 768px) {
     min-width: 330px;
   }
@@ -69,6 +79,23 @@ const Questionbox = styled.div`
   height: 150px;
   padding-top: 50px;
   box-sizing: border-box;
+  @media only screen and (max-width: 768px) {
+    min-width: 330px;
+  }
+`;
+
+const Btn = styled.button`
+  width: 70%;
+  height: 20%;
+  background-color: white;
+  text-align: center;
+  padding: 12px 0px;
+  background-color: #2c302e;
+  border-radius: 5px;
+  color: white;
+  @media only screen and (max-width: 768px) {
+    min-width: 330px;
+  }
 `;
 
 export default InterviewCard;

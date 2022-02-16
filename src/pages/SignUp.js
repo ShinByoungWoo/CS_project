@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { Grid, Text, Input, Button } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
 // import { emailCheck } from "../shared/common";
+import styled from "styled-components";
 
 const SignUp = (props) => {
   const dispatch = useDispatch();
@@ -24,57 +25,87 @@ const SignUp = (props) => {
 
   return (
     <React.Fragment>
-      <Grid padding="16px">
-        <Text size="32px" bold>
-          회원가입
-        </Text>
+      <Box>
+        <Container padding="16px">
+          <Text size="32px" bold>
+            회원가입
+          </Text>
 
-        <Grid padding="16px 0px">
-          <Input
-            label="아이디"
-            placeholder="아이디를 입력해주세요"
-            _onChange={(e) => {
-              setId(e.target.value);
-            }}
-          />
-        </Grid>
+          <Container padding="16px 0px">
+            <Inputbox
+              label="아이디"
+              type="text"
+              placeholder="아이디를 입력해주세요"
+              onChange={(e) => {
+                setId(e.target.value);
+              }}
+            />
+          </Container>
 
-        <Grid padding="16px 0px">
-          <Input
-            label="닉네임"
-            placeholder="닉네임을 입력해주세요."
-            _onChange={(e) => {
-              setnickname(e.target.value);
-            }}
-          />
-        </Grid>
+          <Container padding="16px 0px">
+            <Inputbox
+              label="닉네임"
+              type="text"
+              placeholder="닉네임을 입력해주세요."
+              onChange={(e) => {
+                setnickname(e.target.value);
+              }}
+            />
+          </Container>
 
-        <Grid padding="16px 0px">
-          <Input
-            type="password"
-            label="비밀번호"
-            placeholder="비밀번호를 입력해주세요"
-            _onChange={(e) => {
-              setPwd(e.target.value);
-            }}
-          />
-        </Grid>
-        <Grid padding="16px 0px">
-          <Input
-            type="password"
-            label="비밀번호 확인"
-            placeholder="비밀번호를 다시 입력해주세요"
-            _onChange={(e) => {
-              setuserPwConfire(e.target.value);
-            }}
-          />
-        </Grid>
-        <Grid padding="16px 0px">
-          <Button _onClick={signup} text="회원가입 하기"></Button>
-        </Grid>
-      </Grid>
+          <Container padding="16px 0px">
+            <Inputbox
+              type="password"
+              label="비밀번호"
+              placeholder="비밀번호를 입력해주세요"
+              onChange={(e) => {
+                setPwd(e.target.value);
+              }}
+            />
+          </Container>
+          <Container padding="16px 0px">
+            <Inputbox
+              type="password"
+              label="비밀번호 확인"
+              placeholder="비밀번호를 다시 입력해주세요"
+              onChange={(e) => {
+                setuserPwConfire(e.target.value);
+              }}
+            />
+          </Container>
+          <Button
+            width="350px"
+            margin="20px auto"
+            _onClick={signup}
+            text="회원가입 하기"
+          ></Button>
+        </Container>
+      </Box>
     </React.Fragment>
   );
 };
+
+const Box = styled.div`
+  margin-top: 150px;
+  display: grid;
+  padding: auto;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const Container = styled.div`
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+`;
+
+const Inputbox = styled.input`
+  background-color: white;
+  width: 450px;
+  height: 30px;
+  border-radius: 4px;
+  margin: 10px;
+`;
 
 export default SignUp;

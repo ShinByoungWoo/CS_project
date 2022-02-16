@@ -27,23 +27,25 @@ const user_initial = {
 };
 
 //미들웨어
-const loginNJ = (id, pwd) => {
+const loginNJ = (id, pwd, nickname) => {
   console.log("111");
   return async function (dispatch, getState, { history }) {
     console.log("2221");
     const user = {
       userId: id,
       userPw: pwd,
+      nickname: nickname,
     };
     await api
       .post("/api/auth", user)
       .then(function (response) {
-        // localStorage.setItem("nickname", response.data.nickname);
+        localStorage.setItem("nickname", response.data.nickname);
         localStorage.setItem("token", response.data.token);
         dispatch(setUser(response.data.nickname));
-        alert(response.data.message);
+        // alert(response.data.message);
         // console.log(response.data.message);
-        history.replace("/");
+        // history.replace("/");
+        window.location.replace("/");
       })
       .catch((error) => {
         console.log("444");
@@ -67,6 +69,7 @@ const signupNJ = (id, nickname, pwd, userPwConfirm) => {
       .post("/api/signup", userInfo)
       .then(function (response) {
         history.push("/login");
+        alert(response.data.message);
       })
       .catch((error) => {
         window.alert(error.response.data.errorMessage);
@@ -98,7 +101,6 @@ const logoutNJ = () => {
   return function (dispatch, getState, { history }) {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-
     dispatch(logOut());
     window.location.replace("/");
   };
@@ -113,6 +115,7 @@ export default handleActions(
         // setCookie("is_login", "true");
         draft.user = action.payload.user;
         draft.is_login = true;
+        console.log(draft.is_login);
       });
     },
     [LOG_OUT]: (state, action) =>

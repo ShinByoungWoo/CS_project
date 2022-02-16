@@ -1,6 +1,7 @@
 import "./App.css";
 import React from "react";
 import styled from "styled-components";
+import "../index.css";
 
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
@@ -29,8 +30,8 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={SignUp} />
             <Route path="/questionwrite" exact component={QuestionWrite} />
-            <Route path="/detail/:id/answerwrite" exact component={AnswerWrite} />
-            <Route path="/detail/:id" exact component={Detail} />
+            <Route path="/answerwrite" exact component={AnswerWrite} />
+            <Route path="/detail/:id" component={Detail} />
             <Route exact component={NotFound} />
           </Switch>
         </ConnectedRouter>
@@ -39,6 +40,6 @@ function App() {
   );
 }
 
-// const Plusbtn = styled.button``;
+const Plusbtn = styled.button``;
 
 export default App;

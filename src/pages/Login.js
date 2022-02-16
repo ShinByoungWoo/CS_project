@@ -9,6 +9,7 @@ import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
 
 import { Input, Text, Grid, Button } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
+import styled from "styled-components";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -26,38 +27,67 @@ const Login = (props) => {
 
   return (
     <React.Fragment>
-      <Grid padding="16px">
-        <Text size="32px" bold>
-          로그인
-        </Text>
-        <Grid padding="16px 0px">
-          <Input
-            label="아이디"
-            placeholder="아이디를 입력해주세요"
-            _onChange={(e) => {
-              setId(e.target.value);
+      <Box>
+        <Container>
+          <Text size="20px" bold>
+            로그인
+          </Text>
+          <Container>
+            <Inputbox
+              label="아이디"
+              placeholder="아이디를 입력해주세요"
+              _onChange={(e) => {
+                setId(e.target.value);
+              }}
+            />
+          </Container>
+          <Container>
+            <Inputbox
+              label="비밀번호"
+              type="password"
+              placeholder="비밀번호를 입력해주세요"
+              _onChange={(e) => {
+                setPwd(e.target.value);
+              }}
+            />
+          </Container>
+          <Button
+            width="350px"
+            margin="20px auto"
+            _onClick={() => {
+              login();
             }}
-          />
-        </Grid>
-        <Grid padding="16px 0px">
-          <Input
-            type="password"
-            label="비밀번호"
-            placeholder="비밀번호를 입력해주세요"
-            _onChange={(e) => {
-              setPwd(e.target.value);
-            }}
-          />
-        </Grid>
-        <Button
-          _onClick={login}
-          // _disabled={id === "" || pwd === "" ? true : false}
-        >
-          로그인하기
-        </Button>
-      </Grid>
+          >
+            로그인하기
+          </Button>
+        </Container>
+      </Box>
     </React.Fragment>
   );
 };
+
+const Box = styled.div`
+  margin-top: 150px;
+  display: grid;
+  padding: auto;
+
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const Container = styled.div`
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+`;
+
+const Inputbox = styled.input`
+  background-color: white;
+  width: 450px;
+  height: 30px;
+  border-radius: 4px;
+  margin: 10px;
+`;
 
 export default Login;

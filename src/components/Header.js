@@ -8,22 +8,16 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { Grid, Text, Button } from "../elements";
 import { history } from "../redux/configureStore";
 import { getCookie, deleteCookie } from "../shared/Cookie";
-import Login from "../pages/Login";
-import { FiEdit } from "react-icons/fi";
+import { BiEdit } from "react-icons/bi";
+
+import { FcCalendar } from "react-icons/bi";
 import styled from "styled-components";
 
 const Header = (props) => {
-  // firebase 세션키 가져오는 부분이라 주석처리
-
-  // const _session_key = `firebase:authUser:${apiKey}:[DEFAULT]`;
-  // const is_session = sessionStorage.getItem(_session_key) ? true : false;
-  // console.log(is_session);
-
   // 토큰값이 있으면, 로그인/로그아웃 화면 보여주는 곳!
   const dispatch = useDispatch();
-
   const local_token = localStorage.getItem("token") ? true : false;
-  const local_nickname = localStorage.getItem("nickname");
+  // const local_nickname = localStorage.getItem("nickname");
   const is_login = useSelector((state) => state.user.is_login);
 
   React.useEffect(() => {}, [is_login]);
@@ -33,65 +27,118 @@ const Header = (props) => {
   console.log(local_token);
   console.log(is_login);
 
+  //   // if (local_token) {
+  //   return (
+  //     <Container>
+  //       <Text size="24px" bold>
+  //         지금우리면접은🖊
+  //       </Text>
+  //       {/* <Button
+  //         text="로그아웃"
+  //         _onClick={() => {
+  //           dispatch(userActions.logoutNJ());
+  //         }}
+  //       ></Button> */}
+  //       <Btn
+  //         onClick={() => {
+  //           history.push("/QuestionWrite");
+  //         }}
+  //       >
+  //         <BiEdit size="100px" />
+  //       </Btn>
+  //     </Container>
+  //   );
+  //   // }
+  // };
+
   if (local_token) {
     return (
       <React.Fragment>
-        <Grid is_flex padding="16px 0px 16px 0px">
-          <Grid>
-            <Text margin="0px" size="24px" bold>
-              지금우리면접은🖊
-            </Text>
+        <Container>
+          <Grid is_flex padding="16px 0px 16px 0px">
+            <Grid>
+              <Text margin="0px" size="24px" bold>
+                지금우리면접은🖊
+              </Text>
+            </Grid>
+
+            <Grid is_flex padding="16px 0px 16px 0px">
+              {/* <Text>{local_nickname}</Text> */}
+              <Button
+                text="로그아웃"
+                _onClick={() => {
+                  dispatch(userActions.logoutNJ());
+                }}
+              ></Button>
+            </Grid>
           </Grid>
 
-          <Grid is_flex padding="16px 0px 16px 0px">
-            <Text>{local_nickname}</Text>
-            <Button
-              text="로그아웃"
-              _onClick={() => {
-                dispatch(userActions.logoutNJ());
-              }}
-            ></Button>
-          </Grid>
-        </Grid>
+          <Btn
+            onClick={() => {
+              history.push("/QuestionWrite");
+            }}
+          >
+            <BiEdit size="70px" />
+          </Btn>
+        </Container>
       </React.Fragment>
     );
   }
 
   return (
     <React.Fragment>
-      <Grid is_flex padding="16px 0px 16px 0px">
-        <Grid>
-          <Text margin="0px 0px 0px 15px" size="24px" bold>
-            지금우리면접은🖊
-          </Text>
-        </Grid>
+      <Container>
+        <Grid is_flex padding="16px 0px 16px 0px">
+          <Grid>
+            <Text margin="0px 0px 0px 15px" size="24px" bold>
+              지금우리면접은🖊
+            </Text>
+          </Grid>
 
-        <Grid is_flex>
-          <Button
-            text="로그인"
-            _onClick={() => {
-              history.push("/login");
-            }}
-          ></Button>
-          <Button
-            text="회원가입"
-            _onClick={() => {
-              history.push("/signup");
-            }}
-          ></Button>
+          <Grid is_flex>
+            <Button
+              witdh="50%"
+              text="로그인"
+              _onClick={() => {
+                history.push("/login");
+              }}
+            ></Button>
+            <Button
+              text="회원가입"
+              _onClick={() => {
+                history.push("/signup");
+              }}
+            ></Button>
+          </Grid>
         </Grid>
-      </Grid>
-      <Icon></Icon>
+      </Container>
     </React.Fragment>
   );
 };
 
 Header.defaultProps = {};
 
-const Icon = styled.div`
+const Container = styled.div`
+  display: flex;
+  background-color: #52b788;
+`;
+
+const Card = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+
+  @media only screen and (max-width: 768px) {
+    min-width: 330px;
+  }
+`;
+
+const Btn = styled.div`
   position: absolute;
-  right: 0px;
   bottom: 0px;
-  padding: 40px;
+  right: 0px;
+  margin: 30px;
 `;
 export default Header;
