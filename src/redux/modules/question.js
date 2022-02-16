@@ -29,14 +29,13 @@ const initalQuestion = {
     } 
 
 //axios
-// 답변카드 서버로 보내는 작업 
-export const addQuestionDB = (qTitle,qDate) => {
+// 질문카드 서버로 보내는 작업 
+export const addQuestionDB = (qTitle) => {
 	return (dispatch, getState, { history }) => {
 		const TOKEN = localStorage.getItem("token");
 		instance
             .post('/api/questions',{
-				questionTitle: qTitle,
-				questionDate: qDate,
+				questionTitle: qTitle
 				},
 				{headers: { authorization: `Bearer ${TOKEN}` },})
 			.then((res) => {
@@ -45,7 +44,7 @@ export const addQuestionDB = (qTitle,qDate) => {
 				history.push('/');
 			})
 			.catch((err) => {
-				console.log(err);
+				console.log(err,'질문생성오류');
 			});
 	};
 };
@@ -56,11 +55,11 @@ export const loadQuestionDB = ()=> {
 	instance
 	.get('/api/questions')
 	.then((response)=>{
-		console.log(response.data.questions)
+		// console.log(response.data.questions)
 		dispatch(loadQuestions(response.data.questions));
 	})
   	.catch((err) => {
-    	console.log(err);
+    	console.log(err,'질문 불러오기 오류');
   	});
 	};
 };
@@ -72,12 +71,8 @@ export default handleActions(
 			draft.list.push(action.payload.questions);
         }),
 		[LOAD_QUESTION] : (state,action) => {
-			const qlist = action.payload.questions 
-			let qId = qlist.map(a => a._id); 
-			// console.log(qlist) 
-			// console.log(qId)
 			return (
-				{...state,list: action.payload.questions, qId}
+				{...state,list: action.payload.questions}
 			)
 			
 		},

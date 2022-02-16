@@ -4,24 +4,19 @@ import { produce } from "immer";
 import moment from "moment";
 
 //action
-// const ADD_ANSWER = "ANSWER_ADD"; //혜인님이 한 것
 const LOAD_ANSWER = "LOAD_ANSWER";
 const ADD_ANSWER = "ADD_ANSWER";
 const TOGGLE_LIKE = "UPDATE_LIKE"; //좋아요 기능
-// const LOAD_ANSWER = "ANSWER_LOAD";
 // const EDIT_ANSWER = "ANSWER_EDIT";
 // const DELETE_ANSWER = "ANSWER_DELETE";
 
 //action creator
-// const addAnswer = createAction(ADD_ANSWER, (answer) => ({ answer })); // 혜인님이 한 것
 const loadAnswer = createAction(LOAD_ANSWER, (answers) => ({ answers }));
 const addAnswer = createAction(ADD_ANSWER, (answers) => ({ answers }));
 const toggleLike = createAction(TOGGLE_LIKE, (answer_id, likeState) => ({
   answer_id,
   likeState,
 }));
-
-// const loadANSWER = createAction(LOAD_ANSWER, (answerList) => ({ answerList }));
 // const editANSWER = createAction(EDIT_ANSWER, (ANSWERId) => ({ ANSWERId }));
 // const deleteANSWER = createAction(DELETE_ANSWER, (ANSWERId) => ({ ANSWERId }));
 
@@ -32,39 +27,37 @@ const initialState = {
 };
 
 //middlewear
- // `/api/questions/${id}/answers`,
 //병우추가
 // 추가하기 기능
-export const addAnswerDB = (answer) => {
+export const addAnswerDB = (id,answer) => {
   return (dispatch, getState, { history }) => {
     const TOKEN = localStorage.getItem("token");
     instance
-      .post("/api/questions/:questionId/answers",
+      .post(`/api/questions/${id}/answers`,
         {
           answer: answer,
         },
         { headers: { authorization: `Bearer ${TOKEN}` } }
       )
       .then((response) => {
-        dispatch(addAnswer(answer));
+        dispatch(addAnswer(id,answer));
         history.goBack();
         console.log(response, "에드!");
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error,'답변생성 오류');
       });
   };
 };
 
 // 게시글 불러오는 기능
-const loadAnswerDB = () => {
+const loadAnswerDB = (id) => {
   return function (dispatch, getState, { history }) {
     instance
-      .get("/api/questions/:questionId/answers")
+      .get(`/api/questions/${id}/answers`)
       .then((response) => {
-        // console.log(response);
-        console.log(response.data.answers);
         dispatch(loadAnswer(response.data.answers));
+        console.log(response.data.answers)
       })
       .catch((err) => {
         // console.log(err);
@@ -97,21 +90,6 @@ const toggleLikeDB = (answer_id, likeState) => {
   };
 };
 
-// 혜인님이 한 것
-// export const addAnswerDB = (answer) => {
-//   return function (dispatch, getState, { history }) {
-//     instance
-//       .post("/api/questions/:questionId/answers", answer)
-//       .then(() => {
-//         dispatch(addAnswer(answer));
-//         history.push("/main");
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   };
-// };
-
 //reducer
 export default handleActions(
   {
@@ -130,11 +108,13 @@ export default handleActions(
       }),
 
     [LOAD_ANSWER]: (state, action) => {
-      return { ...state, list: action.payload.answers };
+      return (
+        {...state, list: action.payload.answers}
+      )
     },
 
     [ADD_ANSWER]: (state, action) =>
-      produce(state, (draft) => {
+      produce(state,(draft) => {
         draft.list.push(action.payload.answers);
       }),
   },
@@ -142,6 +122,9 @@ export default handleActions(
 );
 
 const actionCreators = {
+  loadAnswer,
+  addAnswer,
+  toggleLike,
   toggleLikeDB,
   addAnswerDB,
   loadAnswerDB,

@@ -3,48 +3,36 @@ import styled from "styled-components";
 import { useHistory } from "react-router"; // 병우추가
 
 import { useSelector, useDispatch } from "react-redux";
-import { Grid, Text, Button, Image, Input } from "../elements";
+import { Grid, Text, Button, Input } from "../elements";
 import { actionCreators as answerActions } from "../redux/modules/answer"; // 병우추가
+import { actionCreators as questionActions } from "../redux/modules/question";
 
 const AnswerWrite = (props) => {
   const dispatch = useDispatch();
-  // console.log(props);
-  const is_login = useSelector((state) => state.user.is_login);
-  // const { history } = props;
-
-  const [answers, setAnswers] = React.useState("");
-
-  //작성된 내용 넘겨주기
-  const changeAnswers = (e) => {
-    setAnswers(e.target.value);
-  };
-
-  //병우추가
-  React.useEffect(() => {
-    dispatch(answerActions.loadAnswerDB());
-  }, []);
-
   const history = useHistory(); 
-
-  const question_list = useSelector((state) => state.question.list);
-
-  // console.log(question_list);
-
-  // const question_id = useSelector(state => state.question.qId) 
+  // questionId와 일치하는 질문 내용 불러오기
+  React.useEffect(() => {
+    dispatch(questionActions.loadQuestionDB());
+  }, []);
   
-
-  const id = props.match.params.id;
-  console.log(id)
-  const question_idx = question_list.findIndex((q) => q._id === id);
-  console.log(question_idx)
+  const question_list = useSelector((state) => state.question.list);
+  const questionId = props.match.params.id;
+  const question_idx = question_list.findIndex((q) => q._id === questionId);
   const question = question_list[question_idx];
   console.log(question)
 
-  const addAnswer = () => {
-
-    dispatch(answerActions.addAnswerDB(answers));
+  // 답변 생성 넘겨주기
+  const [answers, setAnswers] = React.useState("");
+ const changeAnswers = (e) => {
+    setAnswers(e.target.value);
   };
 
+// 답변 생성
+ const addAnswer = () => {
+    dispatch(answerActions.addAnswerDB(questionId,answers));
+  };
+ 
+  // const is_login = useSelector((state) => state.user.is_login);
   
   /*로그인 되어있지 않을 경우 보여지는 페이지*/
   // if (!is_login) {
@@ -68,9 +56,10 @@ const AnswerWrite = (props) => {
   return (
     <React.Fragment>
       <Frame>
+      {question&&
         <Text color="white" size="30px">
           {question.questionTitle}
-        </Text>
+        </Text>}
         <Input multiLine _onChange={changeAnswers}></Input>
         <BtnBox>
           <Button
@@ -79,7 +68,7 @@ const AnswerWrite = (props) => {
             width="80px"
             text="취소"
             _onClikt={() => {
-              // history.goBack(); // 이거 왜 안돼?
+              history.goBack() // 왜안돼?
             }}
           ></Button>
           <Button

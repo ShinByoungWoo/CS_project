@@ -24,13 +24,6 @@ const DetailCard = (props) => {
   const [likeState, setLikeState] = React.useState("");
   const [post, setPost] = React.useState("");
 
-
-
-  React.useEffect(() => {
-    
-    dispatch(answerActions.loadAnswerDB());
-  }, []);
-
   const questionList = useSelector((state) => state.question.list);
   // console.log(questionList);
 

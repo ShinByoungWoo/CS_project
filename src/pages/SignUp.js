@@ -19,16 +19,6 @@ const SignUp = (props) => {
       window.alert("빈칸 모두 입력해주세요.");
       return;
     }
-
-    // if (!emailCheck(id)) {
-    //   window.alert("이메일 형식이 맞지 않습니다.");
-    //   return;
-    // }
-
-    if (pwd !== userPwConfire) {
-      window.alert("비밀번호가 맞지 않습니다.");
-      return;
-    }
     dispatch(userActions.signupNJ(id, nickname, pwd, userPwConfire));
   };
 
