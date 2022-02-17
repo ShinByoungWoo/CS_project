@@ -69,7 +69,10 @@ const GridBox = styled.div`
     ${(props) => (props.center ? `text-align: center` : "")};
   ${(props) =>
     props.borderradius ? `border-radius: ${props.borderradius}` : ""}
-  ${(props) => (props.justifyCenter ? `justify-content: center` : "")}
+  ${(props) =>
+    props.justifyCenter
+      ? `display: flex; align-items: center  justify-content: space-around`
+      : ""}
 `;
 
 export default Grid;

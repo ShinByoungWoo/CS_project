@@ -17,18 +17,18 @@ const InterviewCard = (props) => {
 
   // const { history } = props;
   return (
-    <Card>
-      <Cardhead>
+    <Wrap>
+      <BtnGroup>
         <Text>
           <FcCalendar size="20px" />
           {props.date}
         </Text>
         <Text size="20px">{props.nickname}</Text>
-      </Cardhead>
+      </BtnGroup>
 
-      <Questionbox>
+      <QuestionCard>
         <Text size="25px">{props.questionTitle}</Text>
-      </Questionbox>
+      </QuestionCard>
       <GiClick
         margin-button="10px"
         size="50px"
@@ -37,7 +37,7 @@ const InterviewCard = (props) => {
           history.push(`/detail/${props._id}`);
         }}
       ></GiClick>
-    </Card>
+    </Wrap>
   );
 };
 
@@ -59,7 +59,7 @@ InterviewCard.defaultProps = {
 //   justify-content: center; /* 수평 가운데 정렬 */
 // `;
 
-const Card = styled.div`
+const Wrap = styled.div`
   position: relative;
   width: 350px;
   height: 250px;
@@ -77,12 +77,12 @@ const Card = styled.div`
 `;
 
 //날짜, 작성자부분
-const Cardhead = styled.div`
+const BtnGroup = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-const Questionbox = styled.div`
+const QuestionCard = styled.div`
   height: 150px;
   padding-top: 15px;
   box-sizing: border-box;
@@ -91,19 +91,19 @@ const Questionbox = styled.div`
   }
 `;
 
-const Btn = styled.button`
-  width: 70%;
-  height: 20%;
-  background-color: white;
-  text-align: center;
-  padding: 12px 0px;
-  background-color: #2c302e;
-  border-radius: 5px;
-  color: white;
+// const Btn = styled.button`
+//   width: 70%;
+//   height: 20%;
+//   background-color: white;
+//   text-align: center;
+//   padding: 12px 0px;
+//   background-color: #2c302e;
+//   border-radius: 5px;
+//   color: white;
 
-  @media only screen and (max-width: 768px) {
-    min-width: 330px;
-  }
-`;
+//   @media only screen and (max-width: 768px) {
+//     min-width: 330px;
+//   }
+// `;
 
 export default InterviewCard;

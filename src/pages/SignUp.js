@@ -16,10 +16,10 @@ const SignUp = (props) => {
   const [nickname, setnickname] = React.useState("");
 
   const signup = () => {
-    // if (id === "" || pwd === "" || nickname === "") {
-    //   window.alert("빈칸 모두 입력해주세요.");
-    //   return;
-    // }
+    if (id === "" || pwd === "" || nickname === "") {
+      window.alert("빈칸 모두 입력해주세요.");
+      return;
+    }
     dispatch(userActions.signupNJ(id, nickname, pwd, userPwConfire));
   };
 

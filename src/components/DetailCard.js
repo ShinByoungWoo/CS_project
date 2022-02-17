@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { actionCreators as likeActions } from "../redux/modules/like"; // 라이크 다시 가져옴 ㅠ
-import { actionCreators as answerActions } from "../redux/modules/answer"
+import { actionCreators as answerActions } from "../redux/modules/answer";
 import { Text } from "../elements";
 import { useHistory } from "react-router";
 
@@ -14,7 +14,6 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import instance from "../shared/api";
-
 
 const DetailCard = (props) => {
   const answer_id = props._id; //answer의 Id
@@ -33,22 +32,19 @@ const DetailCard = (props) => {
   console.log(user.is_login);
 
   const count = useSelector((state) => state.like.likes);
-  console.log(count); 
+  console.log(count);
 
   const [likeState, setLikeState] = React.useState("");
   const [list, setList] = React.useState("");
 
   React.useEffect(() => {
     const likecnt = dispatch(likeActions.likeCountDB(answer_id));
-    console.log(likecnt)
+    console.log(likecnt);
   }, []);
 
   const is_token = localStorage.getItem("token") ? true : false;
   console.log(user.is_token);
   console.log(is_token);
-
-
-
 
   // 그냥 끼워 맞추기식
   // const [cnt, setCnt] = useState(0)
@@ -56,12 +52,10 @@ const DetailCard = (props) => {
   // up = () => {
   //   setCnt(cnt + 1)
   // }
-  
+
   // down = () => {
   //   setCnt(cnt - 1)
   // }
-
-
 
   return (
     <React.Fragment>
@@ -71,48 +65,67 @@ const DetailCard = (props) => {
           onClick={() => {
             dispatch(likeActions.likeCountDB(answer_id));
           }}
-        >gd
+        >
+          gd
         </Btn>
-        <QuestionCard>
-          <BtnGroup>
-            {is_token && likeState ? (
-              <Btn // 풀 하트
-                style={{ display: "flex" }}
-                onClick={() => {
-                  setLikeState(false);
-                  
-                  const newPostLikeCnt = parseInt(list.postLikeCnt) - 1;
-                  setList({ ...list, postLikeCnt: newPostLikeCnt });
-                  dispatch(likeActions.deleteLikeDB(answer_id));
-                }}
-              >
-                <AiFillHeart color={"red"} className="like" />
-                <Text size="15px" margin="0px">
-                  0
-                </Text>
-              </Btn>
-            ) : (
-              // 빈 하트
-              <Btn
-                style={{ display: "flex" }}
-                onClick={() => {
-                  setLikeState(true);
+        <BtnGroup>
+          {is_token && likeState ? (
+            <Btn
+              // 풀 하트
+              style={{ display: "flex" }}
+              onClick={() => {
+                setLikeState(false);
 
-                  const newPostLikeCnt = parseInt(list.postLikeCnt) + 1;
-                  setList({ ...list, postLikeCnt: newPostLikeCnt });
+                const newPostLikeCnt = parseInt(list.postLikeCnt) - 1;
+                setList({ ...list, postLikeCnt: newPostLikeCnt });
+                dispatch(likeActions.deleteLikeDB(answer_id));
+              }}
+            >
+              <AiFillHeart color={"red"} className="like" />
+              <Text size="25px" margin="0px">
+                0
+              </Text>
+            </Btn>
+          ) : (
+            // 빈 하트
+            <Btn
+              style={{ display: "flex" }}
+              onClick={() => {
+                setLikeState(true);
 
-                  dispatch(likeActions.addLikeDB(answer_id, true));
-                }}
-              >
-                <AiOutlineHeart className="dislike" />
-                <Text size="15px" margin="0px">
-                  {props.postLikeCnt}
-                </Text>
-              </Btn>
-            )}
+                const newPostLikeCnt = parseInt(list.postLikeCnt) + 1;
+                setList({ ...list, postLikeCnt: newPostLikeCnt });
 
-            {/* 테스트용 버튼 */}
-            {/* <Btn onClick={test}
+                dispatch(likeActions.addLikeDB(answer_id, true));
+              }}
+            >
+              <AiOutlineHeart size="25px" className="dislike" />
+              <Text size="20px" margin="0px">
+                {props.postLikeCnt}
+              </Text>
+            </Btn>
+          )}
+          {/* 수정버튼 */}
+          <Btn
+            onClick={() => {
+              history.push(`/detail/${props._id}/answerwrite`);
+            }}
+          >
+            <FiEdit className="edit" />
+          </Btn>
+
+          {/* 삭제버튼 */}
+          {props && (
+            <Btn
+              onClick={() => {
+                dispatch(answerActions.deleteAnswerDB(props._id));
+              }}
+            >
+              <RiDeleteBin6Line className="delete" />
+            </Btn>
+          )}
+          {/* 테스트용 버튼 */}
+          {/* <Btn onClick={test}
               style={
                 toggle ? { color: "pink" } : { color: "grey"}
               }
@@ -122,27 +135,8 @@ const DetailCard = (props) => {
               </Text>
               <AiOutlineHeart className="dislike" />
             </Btn> */}
-
-            {/* 수정버튼 */}
-            <Btn
-              onClick={() => {
-                history.push(`/detail/${props._id}/answerwrite`);
-              }}
-            >
-              <FiEdit className="edit" />
-            </Btn>
-
-            {/* 삭제버튼 */}
-            {props && (
-              <Btn
-              onClick={() => {
-                dispatch(answerActions.deleteAnswerDB(props._id));
-              }}
-            >
-              <RiDeleteBin6Line className="delete" />
-            </Btn>
-            )}
-          </BtnGroup>
+        </BtnGroup>
+        <QuestionCard>
           <Text bold>{props.answer}</Text>
         </QuestionCard>
       </Wrap>
@@ -168,11 +162,21 @@ DetailCard.defaultProps = {
 };
 
 const Wrap = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  width: 100vw;
-  text-align: left;
-  justify-content: center;
+  position: relative;
+  width: 350px;
+  height: 250px;
+  padding: 20px;
+  border: 3px solid #1b4332;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 20px;
+  background-color: #fdfcdc;
+  box-shadow: 5px 5px 10px #081c15;
+  padding: 20px;
+
+  @media only screen and (max-width: 768px) {
+    min-width: 330px;
+  }
 `;
 
 // const QuestionInput = styled.input`
@@ -183,29 +187,23 @@ const Wrap = styled.div`
 // `;
 
 const QuestionCard = styled.div`
-  border: 1px solid black;
-  margin: 20px;
-  padding: 5px;
-  box-sizing: border-box;
-  width: 300px;
   height: 150px;
-  text-align: center;
-  word-break: break-all;
-  overflow: hidden;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  padding-top: 15px;
+  box-sizing: border-box;
+  @media only screen and (max-width: 768px) {
+    min-width: 330px;
+  }
 `;
-
 const BtnGroup = styled.div`
   display: flex;
   justify-content: space-around;
-  margin: 0px;
 `;
 
 const Btn = styled.button`
   width: 50px;
   height: 20px;
   margin: 0px 5px;
-  font-size: 16px;
+  font-size: 25px;
   background-color: #81bef7;
   color: ${(props) => props.color};
   padding: 0px;

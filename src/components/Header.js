@@ -53,7 +53,12 @@ const Header = (props) => {
     return (
       <React.Fragment>
         <Container padding="20px 20%">
-          <img src="/images/logo.png" alt="" width="350px" />
+          <img
+            src="/images/logo.png"
+            alt=""
+            width="350px"
+            onClick={() => history.push("/")}
+          />
           <Card>
             <Button
               margin="0px 10px"
@@ -79,7 +84,12 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <Container padding="20px 20%">
-        <img src="/images/logo.png" alt="" width="350px" />
+        <img
+          src="/images/logo.png"
+          alt=""
+          width="350px"
+          onClick={() => history.push("/")}
+        />
         <Card>
           <Button
             margin="0px 10px"
@@ -115,7 +125,7 @@ const Container = styled.div`
 const Card = styled.div`
   position: relative;
   width: 350px;
-  height: 250px;
+
   padding: 20px;
   margin-top: 30px;
   text-align: center;

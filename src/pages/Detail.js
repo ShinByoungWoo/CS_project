@@ -29,12 +29,12 @@ const Detail = (props) => {
   const question = questionList[question_idx];
 
   return (
-    <Grid padding={"16px"}>
+    <Grid padding={"20px 20%"}>
       {/* {question &&  */}
       <Text bold size={"16px"}>
         {question && question.date}
       </Text>
-      <Grid margin={"40px 0px"} is_flex>
+      <Grid margin={"0% 20% 0px 20p%"} is_flex>
         <Text bold size={"16px"}>
           {question && question.nickname}
         </Text>
@@ -50,6 +50,8 @@ const Detail = (props) => {
           답변하기
         </Button>
       </Grid>
+
+      {/*카드부분은 우선 완료!*/}
       <Wrap>
         {answerList.map((v, i) => {
           return <DetailCard key={i} {...v} />;
@@ -59,13 +61,13 @@ const Detail = (props) => {
   );
 };
 
+//답변카드 스타일
 const Wrap = styled.div`
   display: flex;
-  flex-flow: row wrap;
-  /* float: left; */
-  width: 100vw;
-  text-align: left;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 30px;
+  justify-content: center; /* 수평 가운데 정렬 */
 `;
 
 export default Detail;
