@@ -12,13 +12,18 @@ const QuestionWrite = (props) => {
 
   const { history } = props;
   const [questions, setQuestions] = React.useState("");
+  const selectList = ["Computer Science", "Data Structure", "Database", "Algorithm","JavaScript","React", "Node.js"];
+  const [selected, setSelected] = React.useState("Computer Science");
 
   //작성된 내용 넘겨주기
   const changeQuestions = (e) => {
     setQuestions(e.target.value);
   };
   const addQuestion = () => {
-    dispatch(questionActions.addQuestionDB(questions));
+    dispatch(questionActions.addQuestionDB(questions,selected));
+  };
+  const handleSelect = (e) => {
+    setSelected(e.target.value);
   };
   /*로그인 되어있지 않을 경우 보여지는 페이지*/
   // if (!is_login) {
@@ -44,15 +49,24 @@ const QuestionWrite = (props) => {
       <Container>
         <Frame>
           <Text color="black" size="30px">
-            {" "}
             🤷‍♂️ 질문을 입력해주세요
           </Text>
-          <Input width="100%" multiLine _onChange={changeQuestions}></Input>
+          <Text>
+            카테고리를 선택해주세요
+          </Text>
+          <select onChange={handleSelect} value={selected}>
+          {selectList.map((item) => (
+            <option value={item} key={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+          <Input width="100%" multiLine value={questions} _onChange={changeQuestions}></Input>
           <Button
             margin="15px auto "
             width="150px"
             padding="16px"
-            text="질문 작성 완료"
+            text="질문 작성하기"
             _onClick={addQuestion}
           ></Button>
         </Frame>
@@ -78,5 +92,6 @@ const Frame = styled.div`
     min-width: 330px;
   }
 `;
+
 
 export default QuestionWrite;

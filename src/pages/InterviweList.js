@@ -15,7 +15,6 @@ const InterviewList = (props) => {
     dispatch(questionActions.loadQuestionDB());
   }, []);
   const questionList = useSelector((state) => state.question.list);
-  console.log(questionList);
 
   return (
     <React.Fragment>

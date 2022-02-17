@@ -10,7 +10,7 @@ const LOAD_QUESTION = "QUESTION_LOAD";
 
 
 //action creator
-const addQuestion = createAction(ADD_QUESTION, (questions) => ({ questions }));
+const addQuestion = createAction(ADD_QUESTION, ({questions, category}) => ({ questions, category }));
 const loadQuestions = createAction(LOAD_QUESTION, (questions) => ({ questions }));
 
 
@@ -27,7 +27,7 @@ const initalQuestion = {
 
 //axios
 // 질문카드 서버로 보내는 작업
-export const addQuestionDB = (qTitle) => {
+export const addQuestionDB = (qTitle, qCate) => {
   return (dispatch, getState, { history }) => {
     const TOKEN = localStorage.getItem("token");
     instance
@@ -35,12 +35,13 @@ export const addQuestionDB = (qTitle) => {
         "/api/questions",
         {
           questionTitle: qTitle,
+          category: qCate
         },
         { headers: { authorization: `Bearer ${TOKEN}` } }
       )
       .then((res) => {
         dispatch(addQuestion());
-
+        console.log(res)
         history.push("/");
       })
       .catch((err) => {
@@ -55,7 +56,6 @@ export const loadQuestionDB = () => {
     instance
       .get("/api/questions")
       .then((response) => {
-        console.log(response.data.questions)
         dispatch(loadQuestions(response.data.questions));
       })
       .catch((err) => {
@@ -84,7 +84,6 @@ const actionCreators = {
   addQuestionDB,
   loadQuestions,
   loadQuestionDB,
-  
 };
 
 export { actionCreators };

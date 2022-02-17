@@ -10,10 +10,25 @@ import { actionCreators as questionActions } from "../redux/modules/question";
 const AnswerWrite = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  // questionId와 일치하는 질문 내용 불러오기
+  
   React.useEffect(() => {
     dispatch(questionActions.loadQuestionDB());
+    if (is_edit && !answer) {
+      window.alert("답변 내용이 확인되지 않아 이전 페이지로 되돌아 갑니다!")
+      history.goBack();
+
+      return;
+    }
+    if (is_edit){
+      answer && (setAnswers(answer.answer));
+    }
   }, []);
+
+// 답변 생성 넘겨주기
+const [answers, setAnswers] = React.useState("");
+const changeAnswers = (e) => {
+  setAnswers(e.target.value);
+};
 
   //is_edit
   const questionList = useSelector((state) => state.question.list);
@@ -31,16 +46,11 @@ const AnswerWrite = (props) => {
   const question = questionList[questionIndex];
   console.log(question);
 
-  // 답변 생성 넘겨주기
-  const [answers, setAnswers] = React.useState("");
-  const changeAnswers = (e) => {
-    setAnswers(e.target.value);
-  };
 
   // 답변 생성
 
   const editAnswer = () => {
-    dispatch(answerActions.editAnswerDB(paramsId, answer));
+    dispatch(answerActions.editAnswerDB(paramsId, answers));
   };
   const addAnswer = () => {
     dispatch(answerActions.addAnswerDB(paramsId, answers));
@@ -69,12 +79,13 @@ const AnswerWrite = (props) => {
   return (
     <React.Fragment>
       <Frame>
-        {is_edit ? answer : question && (
-          <Text color="white" size="30px">
-            {is_edit ? "게시글 수정" : question.questionTitle}
+        {(is_edit ? answer : question) && (
+          <Text size="30px">
+            {is_edit ? "답변 수정" : question.questionTitle}
           </Text>
         )}
-        <Input multiLine _onChange={changeAnswers}></Input>
+        
+        <Input multiLine  value={answers} _onChange={changeAnswers}></Input>
         <BtnBox>
           <Button
             margin="10px"
@@ -90,14 +101,20 @@ const AnswerWrite = (props) => {
           margin="10px"
           width="80px"
           text="수정하기"
-          _onClick={editAnswer}
+          _onClick={() => {
+            editAnswer();
+            history.goBack();
+          }}
         ></Button>
         ) : (
           <Button
             margin="10px"
             width="80px"
             text="작성하기"
-            _onClick={addAnswer}
+            _onClick={() => {
+              addAnswer();
+              history.goBack();
+            }}
           ></Button>
         )}
         </BtnBox>

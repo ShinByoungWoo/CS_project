@@ -66,6 +66,7 @@ const loadAnswerDB = (id) => {
 //답변수정
 export const editAnswerDB = (answerId,answer) => {
   return (dispatch, getState, { history }) => {
+    console.log(answer)
     const TOKEN = localStorage.getItem("token");
     instance
     .patch(`/api/answers/${answerId}`,{

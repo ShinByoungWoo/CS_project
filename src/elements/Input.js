@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Text, Grid } from "./index";
 
 const Input = (props) => {
-  const { label, placeholder, _onChange, type, multiLine, width } = props;
+  const { label, placeholder, _onChange, type, multiLine, width ,value } = props;
 
   if (multiLine) {
     return (
@@ -11,6 +11,7 @@ const Input = (props) => {
         {label && <Text margin="0px">{label}</Text>}
         <EleTextArea
           type={type}
+          value={value}
           rows={10}
           placeholder={placeholder}
           onChange={_onChange}
