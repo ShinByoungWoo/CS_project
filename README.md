@@ -1,99 +1,64 @@
-# Getting Started with Create React App
+# [ 합격자, 정답을 알려줘! ]
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
+* [Setup](#setup)
 
-## Available Scripts
+## General info
+### About site
+It's a site for jobseekers want to prepare their interview.
 
-In the project directory, you can run:
+### notion info
+https://www.notion.so/3-SA-efd3be4d46974d05bfaadeb3fe2664dc
 
-### `yarn start`
+### demonstration on youtube
+( ... )
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### user interface diagram
+![image](https://user-images.githubusercontent.com/83942678/154436936-dc4d4a3d-5ab9-47cd-b8d9-484bdd2ca146.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-//주소 연결 할 때 쓰는것
-yarn add react-router-dom@5.2.1
-
-// 상태관리 라이브러리 리덕스 설치
-// State,Action,ActionCreator 자주 쓰는 친구들
-yarn add redux react-redux
-
-yarn add moment
-
-yarn add styled-components
-
-yarn add redux react-redux
-
-yarn add history@4.10.1
-
-yarn add redux-actions
-
-yarn add redux-thunk
-
-connected-react-router@6.8.0
-
-//Mock API 사용위해서 설치
-yarn global add json-server
-
-yarn add immer redux-actions
-yarn add redux-logger
-yarn add axios
-yarn add react-icons
+### api details
+![image](https://user-images.githubusercontent.com/83942678/154225717-9e312ea2-7eb2-4f88-9ccc-62171cb10ab6.png)
+	
+## Technologies
+Project is created with:
+* node.js
+* react
+* mongoDB
+* dependencies
+```
+"dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "axios": "^0.26.0",
+    "connected-react-router": "6.8.0",
+    "history": "4.10.1",
+    "immer": "^9.0.12",
+    "moment": "^2.29.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "5.2.1",
+    "react-scripts": "5.0.0",
+    "redux": "^4.1.2",
+    "redux-actions": "^2.6.5",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.4.1",
+    "styled-components": "^5.3.3",
+    "web-vitals": "^2.1.0"
+  }
+```
+	
+## Setup
+To run this project, install it locally using yarn:
+```
+"scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
+```
