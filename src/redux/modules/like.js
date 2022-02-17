@@ -2,6 +2,9 @@ import instance from "../../shared/api";
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 
+
+
+
 //action
 
 const ADD_LIKE = "ADD_LIKE"; //좋아요 기능
@@ -47,12 +50,11 @@ const likeCountDB = (answer_id) => {
     instance
       .get(`/api/answers/${answer_id}/likes/`)
       .then((response) => {
-        dispatch(likeCount(response.data.countLikes));
-        console.log(response.data.countLikes, "좋아요 수");
+        dispatch(likeCount({countLikes:response.data.countLikes}));
       })
       .catch((error) => {
-        console.log(error);
-      });
+        // console.log(error);
+      });   
   };
 };
 
@@ -60,10 +62,8 @@ const likeCountDB = (answer_id) => {
 export const addLikeDB = (answer_id) => {
   return function (dispatch, getState, { history }) {
     const TOKEN = localStorage.getItem("token");
-    console.log(TOKEN);
-    console.log(answer_id);
+    console.log("you liked it");
     instance
-
       .post(
         `/api/answers/${answer_id}/likes`,
         {},
@@ -73,12 +73,10 @@ export const addLikeDB = (answer_id) => {
       )
       .then((response) => {
         dispatch(addLike(answer_id));
-        console.log(response);
-        // alert(response.data.message);
+        // console.log(response);
       })
-      .catch((err) => {
-        console.log(err);
-        window.alert("좋아요 실패!");
+      .catch((error) => {
+        // alert(error.response.data.errorMessage);
       });
   };
 };
@@ -87,6 +85,7 @@ export const addLikeDB = (answer_id) => {
 const deleteLikeDB = (answer_id) => {
   return function (dispatch, getState, { history }) {
     const TOKEN = localStorage.getItem("token");
+    console.log("you disliked it");
     instance
       .delete(`/api/answers/${answer_id}/likes`, {
         headers: { authorization: `Bearer ${TOKEN}` },
@@ -103,18 +102,22 @@ export default handleActions(
   {
     [ADD_LIKE]: (state, action) =>
       produce(state, (draft) => {
-        return { likes: action.payload.answer_id+ 1 };
+        return { likes: action.payload.answer_id };
+        // 누른아이디값을 저장하고
+        // 저장한애들의 렝스를 구함 
       }),
 
     [DELETE_LIKE]: (state, action) =>
       produce(state, (draft) => {
-        return { likes: action.payload.answer_id - 1 };
+        draft.likes = draft.likes.filter(
+          (e) => e._id !== action.payload.answer_id
+        );
       }),
 
     [LIKE_COUNT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(draft)
-        draft.likes = action.payload.likes;
+        console.log(action.payload.answer_id)
+        draft.likes.push(action.payload.answer_id);
       }),
   },
   initialState
