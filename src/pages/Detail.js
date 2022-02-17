@@ -19,17 +19,18 @@ const Detail = (props) => {
   }, []);
 
   const questionList = useSelector((state) => state.question.list);
-  console.log(questionList);
+  // console.log(questionList);
   const answerList = useSelector((state) => state.answer.list);
   console.log(answerList);
 
   const question_idx = questionList.findIndex((p) => p._id === questionId);
   // console.log(questionId)
-  // console.log(post_idx)
+  // console.log(question_idx)
   const question = questionList[question_idx];
 
   return (
     <Grid padding={"16px"}>
+      {/* {question &&  */}
       <Text bold size={"16px"}>
         {question && question.date}
       </Text>

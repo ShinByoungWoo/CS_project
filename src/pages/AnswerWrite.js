@@ -15,10 +15,20 @@ const AnswerWrite = (props) => {
     dispatch(questionActions.loadQuestionDB());
   }, []);
 
-  const question_list = useSelector((state) => state.question.list);
-  const questionId = props.match.params.id;
-  const question_idx = question_list.findIndex((q) => q._id === questionId);
-  const question = question_list[question_idx];
+  //is_edit
+  const questionList = useSelector((state) => state.question.list);
+  const answerList = useSelector((state) => state.answer.list);
+
+  const paramsId = props.match.params.id;
+  const questionIndex = questionList.findIndex((e) => e._id === paramsId);
+  let is_edit = questionIndex === -1 ? true : false;
+  //  true : answer . flase : question
+  let answerIndex = is_edit ? answerList.findIndex((a) => a._id === paramsId) : questionIndex;
+  console.log(answerIndex);
+  const answer = answerList[answerIndex];
+  console.log(answer);
+
+  const question = questionList[questionIndex];
   console.log(question);
 
   // 답변 생성 넘겨주기
@@ -28,12 +38,15 @@ const AnswerWrite = (props) => {
   };
 
   // 답변 생성
+
+  const editAnswer = () => {
+    dispatch(answerActions.editAnswerDB(paramsId, answer));
+  };
   const addAnswer = () => {
-    dispatch(answerActions.addAnswerDB(questionId, answers));
+    dispatch(answerActions.addAnswerDB(paramsId, answers));
   };
 
   // const is_login = useSelector((state) => state.user.is_login);
-
   /*로그인 되어있지 않을 경우 보여지는 페이지*/
   // if (!is_login) {
   //   return (
@@ -55,34 +68,40 @@ const AnswerWrite = (props) => {
 
   return (
     <React.Fragment>
-      <Container>
-        {" "}
-        <Frame>
-          {question && (
-            <Text color="balck" size="30px">
-              {question.questionTitle}
-            </Text>
-          )}
-          <Input multiLine _onChange={changeAnswers}></Input>
-          <BtnBox>
-            <Button
-              margin="10px"
-              padding="10px"
-              width="80px"
-              text="취소"
-              _onClikt={() => {
-                history.goBack(); // 왜안돼?
-              }}
-            ></Button>
-            <Button
-              margin="10px"
-              width="80px"
-              text="완료"
-              _onClick={addAnswer} // 병우추가
-            ></Button>
-          </BtnBox>
-        </Frame>
-      </Container>
+      <Frame>
+        {is_edit ? answer : question && (
+          <Text color="white" size="30px">
+            {is_edit ? "게시글 수정" : question.questionTitle}
+          </Text>
+        )}
+        <Input multiLine _onChange={changeAnswers}></Input>
+        <BtnBox>
+          <Button
+            margin="10px"
+            padding="10px"
+            width="80px"
+            text="취소"
+            _onClick={() => {
+              history.goBack();
+            }}
+          ></Button>
+          {is_edit ? (
+          <Button
+          margin="10px"
+          width="80px"
+          text="수정하기"
+          _onClick={editAnswer}
+        ></Button>
+        ) : (
+          <Button
+            margin="10px"
+            width="80px"
+            text="작성하기"
+            _onClick={addAnswer}
+          ></Button>
+        )}
+        </BtnBox>
+      </Frame>
     </React.Fragment>
   );
 };

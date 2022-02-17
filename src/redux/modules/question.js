@@ -7,16 +7,12 @@ import { queryByTitle } from "@testing-library/react";
 //action
 const ADD_QUESTION = "QUESTION_ADD";
 const LOAD_QUESTION = "QUESTION_LOAD";
-// const EDIT_QUESTION = "QUESTION_EDIT";
-// const DELETE_QUESTION = "QUESTION_DELETE";
+
 
 //action creator
 const addQuestion = createAction(ADD_QUESTION, (questions) => ({ questions }));
-const loadQuestions = createAction(LOAD_QUESTION, (questions) => ({
-  questions,
-}));
-// const editQuestion = createAction(EDIT_QUESTION, (questionId) => ({ questionId }));
-// const deleteQuestion = createAction(DELETE_QUESTION, (questionId) => ({ questionId }));
+const loadQuestions = createAction(LOAD_QUESTION, (questions) => ({ questions }));
+
 
 // initialState
 const initialState = {
@@ -59,7 +55,7 @@ export const loadQuestionDB = () => {
     instance
       .get("/api/questions")
       .then((response) => {
-        // console.log(response.data.questions)
+        console.log(response.data.questions)
         dispatch(loadQuestions(response.data.questions));
       })
       .catch((err) => {
@@ -75,9 +71,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.push(action.payload.questions);
       }),
-    [LOAD_QUESTION]: (state, action) => {
+    [LOAD_QUESTION]: (state, action) => 
+    produce(state, (draft) => {
       return { ...state, list: action.payload.questions };
-    },
+    }),
   },
   initialState
 );
@@ -87,6 +84,7 @@ const actionCreators = {
   addQuestionDB,
   loadQuestions,
   loadQuestionDB,
+  
 };
 
 export { actionCreators };

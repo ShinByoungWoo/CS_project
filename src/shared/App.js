@@ -29,11 +29,7 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={SignUp} />
             <Route path="/questionwrite" exact component={QuestionWrite} />
-            <Route
-              path="/detail/:id/answerwrite"
-              exact
-              component={AnswerWrite}
-            />
+            <Route path="/detail/:id/answerwrite" exact component={AnswerWrite} />
             <Route path="/detail/:id" exact component={Detail} />
             <Route exact component={NotFound} />
           </Switch>

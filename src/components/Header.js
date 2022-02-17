@@ -53,7 +53,7 @@ const Header = (props) => {
     return (
       <React.Fragment>
         <Container padding="20px 20%">
-          <img src="/images/logo.png" alt="" width="350px" />\
+          <img src="/images/logo.png" alt="" width="350px" />
           <Card>
             <Button
               margin="0px 10px"

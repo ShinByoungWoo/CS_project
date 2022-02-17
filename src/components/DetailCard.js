@@ -14,20 +14,16 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
+
 const DetailCard = (props) => {
+  // console.log(props)
+  // console.log(props._id)
   const dispatch = useDispatch();
   // const { history } = props;
   const history = useHistory();
-
+ 
   //좋아요 필요기능
   const [likeState, setLikeState] = React.useState("");
-  const [post, setPost] = React.useState("");
-
-  const questionList = useSelector((state) => state.question.list);
-  // console.log(questionList);
-
-  const answerList = useSelector((state) => state.answer.list);
-  // console.log(answerList);
 
   return (
     <React.Fragment>
@@ -78,13 +74,15 @@ const DetailCard = (props) => {
             </Btn>
 
             {/* 삭제버튼 */}
-            <Btn
+            {props && (
+              <Btn
               onClick={() => {
-                // 삭제 디스패치 여기에
+                dispatch(answerActions.deleteAnswerDB(props._id));
               }}
             >
               <RiDeleteBin6Line className="delete" />
             </Btn>
+            )}
           </BtnGroup>
           <Text bold>{props.answer}</Text>
         </QuestionCard>
