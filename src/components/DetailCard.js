@@ -4,8 +4,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { actionCreators as answerActions } from "../redux/modules/answer";
-
+import { actionCreators as likeActions } from "../redux/modules/like"; // 라이크 다시 가져옴 ㅠ
+import { actionCreators as answerActions } from "../redux/modules/answer"
 import { Text } from "../elements";
 import { useHistory } from "react-router";
 
@@ -13,56 +13,115 @@ import { CgChevronDoubleUp } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import instance from "../shared/api";
 
 
 const DetailCard = (props) => {
-  // console.log(props)
-  // console.log(props._id)
+  const answer_id = props._id; //answer의 Id
+  console.log(props);
+  // console.log(answer_id);
   const dispatch = useDispatch();
   // const { history } = props;
   const history = useHistory();
- 
-  //좋아요 필요기능
+
+  const like_list = useSelector((state) => state.answer.list);
+  console.log(like_list);
+  console.log(like_list[answer_id]);
+  const user_info = useSelector((state) => state.user.user);
+  console.log(user_info);
+  const user = useSelector((state) => state.user);
+  console.log(user.is_login);
+
+  const count = useSelector((state) => state.like.likes);
+  console.log(count); 
+
   const [likeState, setLikeState] = React.useState("");
+  const [list, setList] = React.useState("");
+
+  React.useEffect(() => {
+    const likecnt = dispatch(likeActions.likeCountDB(answer_id));
+    console.log(likecnt)
+  }, []);
+
+  const is_token = localStorage.getItem("token") ? true : false;
+  console.log(user.is_token);
+  console.log(is_token);
+
+
+
+
+  // 그냥 끼워 맞추기식
+  // const [cnt, setCnt] = useState(0)
+
+  // up = () => {
+  //   setCnt(cnt + 1)
+  // }
+  
+  // down = () => {
+  //   setCnt(cnt - 1)
+  // }
+
+
 
   return (
     <React.Fragment>
       <Wrap>
         {/* 카드 생성구역 */}
-
+        <Btn
+          onClick={() => {
+            dispatch(likeActions.likeCountDB(answer_id));
+          }}
+        >gd
+        </Btn>
         <QuestionCard>
           <BtnGroup>
-            {/* 색칠 된 하트  is_me를 사용해서 하트 눌렀는지 확인*/}
-            <Btn
-              style={{ display: "flex" }}
-              onClick={() => {
-                // setLikeState(false);
-                // const newPostLikeCnt = post.postLikeCnt - 1;
-                // setPost({ ...post, postLikeCnt: newPostLikeCnt });
-                // dispatch(likeActions.toggleLikeDB(answer_id, false));
-              }}
-            >
-              <Text size="15px" margin="0px">
-                {props.postLikeCnt}
-              </Text>
-              <AiFillHeart color={"red"} className="like" />
-            </Btn>
+            {is_token && likeState ? (
+              <Btn // 풀 하트
+                style={{ display: "flex" }}
+                onClick={() => {
+                  setLikeState(false);
+                  
+                  const newPostLikeCnt = parseInt(list.postLikeCnt) - 1;
+                  setList({ ...list, postLikeCnt: newPostLikeCnt });
+                  dispatch(likeActions.deleteLikeDB(answer_id));
+                }}
+              >
+                <AiFillHeart color={"red"} className="like" />
+                <Text size="15px" margin="0px">
+                  0
+                </Text>
+              </Btn>
+            ) : (
+              // 빈 하트
+              <Btn
+                style={{ display: "flex" }}
+                onClick={() => {
+                  setLikeState(true);
 
-            {/* 색칠 안된 하트 */}
-            <Btn
-              style={{ display: "flex" }}
-              onClick={() => {
-                // setLikeState(true);
-                // const newPostLikeCnt = post.postLikeCnt - 1;
-                // setPost({ ...post, postLikeCnt: newPostLikeCnt });
-                // dispatch(likeActions.toggleLikeDB(answer_id, false));
-              }}
+                  const newPostLikeCnt = parseInt(list.postLikeCnt) + 1;
+                  setList({ ...list, postLikeCnt: newPostLikeCnt });
+
+                  dispatch(likeActions.addLikeDB(answer_id, true));
+                }}
+              >
+                <AiOutlineHeart className="dislike" />
+                <Text size="15px" margin="0px">
+                  {props.postLikeCnt}
+                </Text>
+              </Btn>
+            )}
+
+            {/* 테스트용 버튼 */}
+            {/* <Btn onClick={test}
+              style={
+                toggle ? { color: "pink" } : { color: "grey"}
+              }
             >
               <Text size="15px" margin="0px">
                 {props.postLikeCnt}
               </Text>
               <AiOutlineHeart className="dislike" />
-            </Btn>
+            </Btn> */}
 
             {/* 수정버튼 */}
             <Btn
