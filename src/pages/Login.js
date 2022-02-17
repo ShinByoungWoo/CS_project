@@ -29,11 +29,12 @@ const Login = (props) => {
     <React.Fragment>
       <Box>
         <Container>
-          <Text size="20px" bold>
+          <Text size="32px" bold>
             로그인
           </Text>
           <Container>
             <Input
+              width="350px"
               label="아이디"
               placeholder="아이디를 입력해주세요"
               _onChange={(e) => {
@@ -43,6 +44,7 @@ const Login = (props) => {
           </Container>
           <Container>
             <Input
+              width="350px"
               label="비밀번호"
               type="password"
               placeholder="비밀번호를 입력해주세요"
@@ -78,12 +80,12 @@ const Box = styled.div`
 
 const Container = styled.div`
   text-align: center;
-  background-color: white;
+  background-color: #fdfcdc;
   border-radius: 10px;
 `;
 
 const Inputbox = styled.input`
-  background-color: white;
+  background-color: #fdfcdc;
   width: 450px;
   height: 30px;
   border-radius: 4px;

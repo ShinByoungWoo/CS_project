@@ -16,10 +16,10 @@ const SignUp = (props) => {
   const [nickname, setnickname] = React.useState("");
 
   const signup = () => {
-    if (id === "" || pwd === "" || nickname === "") {
-      window.alert("빈칸 모두 입력해주세요.");
-      return;
-    }
+    // if (id === "" || pwd === "" || nickname === "") {
+    //   window.alert("빈칸 모두 입력해주세요.");
+    //   return;
+    // }
     dispatch(userActions.signupNJ(id, nickname, pwd, userPwConfire));
   };
 
@@ -32,43 +32,47 @@ const SignUp = (props) => {
           </Text>
 
           <Container padding="16px 0px">
-            <Inputbox
+            <Input
+              width="350px"
               label="아이디"
               type="text"
               placeholder="아이디를 입력해주세요"
-              onChange={(e) => {
+              _onChange={(e) => {
                 setId(e.target.value);
               }}
             />
           </Container>
 
           <Container padding="16px 0px">
-            <Inputbox
+            <Input
+              width="350px"
               label="닉네임"
               type="text"
               placeholder="닉네임을 입력해주세요."
-              onChange={(e) => {
+              _onChange={(e) => {
                 setnickname(e.target.value);
               }}
             />
           </Container>
 
           <Container padding="16px 0px">
-            <Inputbox
+            <Input
+              width="350px"
               type="password"
               label="비밀번호"
               placeholder="비밀번호를 입력해주세요"
-              onChange={(e) => {
+              _onChange={(e) => {
                 setPwd(e.target.value);
               }}
             />
           </Container>
           <Container padding="16px 0px">
-            <Inputbox
+            <Input
+              width="350px"
               type="password"
               label="비밀번호 확인"
               placeholder="비밀번호를 다시 입력해주세요"
-              onChange={(e) => {
+              _onChange={(e) => {
                 setuserPwConfire(e.target.value);
               }}
             />
@@ -96,16 +100,8 @@ const Box = styled.div`
 
 const Container = styled.div`
   text-align: center;
-  background-color: white;
+  background-color: #fdfcdc;
   border-radius: 10px;
-`;
-
-const Inputbox = styled.input`
-  background-color: white;
-  width: 450px;
-  height: 30px;
-  border-radius: 4px;
-  margin: 10px;
 `;
 
 export default SignUp;

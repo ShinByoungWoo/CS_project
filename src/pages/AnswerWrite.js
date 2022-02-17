@@ -55,41 +55,54 @@ const AnswerWrite = (props) => {
 
   return (
     <React.Fragment>
-      <Frame>
-        {question && (
-          <Text color="white" size="30px">
-            {question.questionTitle}
-          </Text>
-        )}
-        <Input multiLine _onChange={changeAnswers}></Input>
-        <BtnBox>
-          <Button
-            margin="10px"
-            padding="10px"
-            width="80px"
-            text="취소"
-            _onClikt={() => {
-              history.goBack(); // 왜안돼?
-            }}
-          ></Button>
-          <Button
-            margin="10px"
-            width="80px"
-            text="완료"
-            _onClick={addAnswer} // 병우추가
-          ></Button>
-        </BtnBox>
-      </Frame>
+      <Container>
+        {" "}
+        <Frame>
+          {question && (
+            <Text color="balck" size="30px">
+              {question.questionTitle}
+            </Text>
+          )}
+          <Input multiLine _onChange={changeAnswers}></Input>
+          <BtnBox>
+            <Button
+              margin="10px"
+              padding="10px"
+              width="80px"
+              text="취소"
+              _onClikt={() => {
+                history.goBack(); // 왜안돼?
+              }}
+            ></Button>
+            <Button
+              margin="10px"
+              width="80px"
+              text="완료"
+              _onClick={addAnswer} // 병우추가
+            ></Button>
+          </BtnBox>
+        </Frame>
+      </Container>
     </React.Fragment>
   );
 };
 
+const Container = styled.div`
+  margin-top: 150px;
+`;
+
 const Frame = styled.div`
-  background-color: #000000;
+  background-color: white;
+  width: 50%;
   padding: 30px;
   margin: 25px;
   border-radius: 20px;
-  box-shadow: 5px 5px 10px #e71d36;
+  box-shadow: 5px 5px 10px black;
+  display: grid;
+  margin: auto;
+  @media only screen and (max-width: 768px) {
+    min-width: 330px;
+  }
 `;
 
 const BtnBox = styled.div`

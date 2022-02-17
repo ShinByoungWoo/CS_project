@@ -21,8 +21,8 @@ function App() {
   return (
     // switch 사용해서 잘못된 주소로는 연결 안되도록 구현
     <React.Fragment>
-      <Grid witdh="50%" margin="auto">
-        <Header></Header>
+      <Header></Header>
+      <Grid>
         <ConnectedRouter history={history}>
           <Switch>
             <Route path="/" exact component={InterviewList} />

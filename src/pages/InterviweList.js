@@ -24,7 +24,6 @@ const InterviewList = (props) => {
           {questionList.map((v, i) => {
             return <InterviewCard key={i} {...v} />;
           })}
-          ;
         </PostContainer>
         <Btn
           onClick={() => {
@@ -55,6 +54,7 @@ const Btn = styled.div`
   bottom: 0px;
   right: 0px;
   margin: 30px;
+  position: fixed;
 `;
 
 export default InterviewList;

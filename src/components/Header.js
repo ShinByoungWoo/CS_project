@@ -52,24 +52,25 @@ const Header = (props) => {
   if (local_token) {
     return (
       <React.Fragment>
-        <Container>
-          <Grid is_flex padding="16px 0px 16px 0px">
-            <Grid>
-              <Text margin="0px" size="24px" bold>
-                지금우리면접은🖊
-              </Text>
-            </Grid>
-
-            <Grid is_flex padding="16px 0px 16px 0px">
-              {/* <Text>{local_nickname}</Text> */}
-              <Button
-                text="로그아웃"
-                _onClick={() => {
-                  dispatch(userActions.logoutNJ());
-                }}
-              ></Button>
-            </Grid>
-          </Grid>
+        <Container padding="20px 20%">
+          <img src="/images/logo.png" alt="" width="350px" />\
+          <Card>
+            <Button
+              margin="0px 10px"
+              width="150px"
+              text="내정보"
+              _onClick={() => {
+                // dispatch(userActions.logoutNJ());
+              }}
+            ></Button>
+            <Button
+              width="150px"
+              text="로그아웃"
+              _onClick={() => {
+                dispatch(userActions.logoutNJ());
+              }}
+            ></Button>
+          </Card>
         </Container>
       </React.Fragment>
     );
@@ -77,30 +78,25 @@ const Header = (props) => {
 
   return (
     <React.Fragment>
-      <Container>
-        <Grid is_flex padding="16px 0px 16px 0px">
-          <Grid>
-            <Text margin="0px 0px 0px 15px" size="24px" bold>
-              지금우리면접은🖊
-            </Text>
-          </Grid>
-
-          <Grid is_flex>
-            <Button
-              witdh="50%"
-              text="로그인"
-              _onClick={() => {
-                history.push("/login");
-              }}
-            ></Button>
-            <Button
-              text="회원가입"
-              _onClick={() => {
-                history.push("/signup");
-              }}
-            ></Button>
-          </Grid>
-        </Grid>
+      <Container padding="20px 20%">
+        <img src="/images/logo.png" alt="" width="350px" />
+        <Card>
+          <Button
+            margin="0px 10px"
+            width="150px"
+            text="로그인"
+            _onClick={() => {
+              history.push("/login");
+            }}
+          ></Button>
+          <Button
+            width="150px"
+            text="회원가입"
+            _onClick={() => {
+              history.push("/signup");
+            }}
+          ></Button>
+        </Card>
       </Container>
     </React.Fragment>
   );
@@ -110,19 +106,28 @@ Header.defaultProps = {};
 
 const Container = styled.div`
   display: flex;
+  height: 150px;
+  width: 100%;
   background-color: #52b788;
+  justify-content: space-around;
 `;
 
 const Card = styled.div`
   position: relative;
-  width: 100%;
+  width: 350px;
+  height: 250px;
   padding: 20px;
+  margin-top: 30px;
   text-align: center;
-  font-size: 20px;
 
   @media only screen and (max-width: 768px) {
     min-width: 330px;
   }
+`;
+
+const Imgsize = styled.div`
+  width: 150px;
+  height: 100px;
 `;
 
 export default Header;

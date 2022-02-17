@@ -42,6 +42,7 @@ const loginNJ = (id, pwd, nickname) => {
         localStorage.setItem("nickname", response.data.nickname);
         localStorage.setItem("token", response.data.token);
         dispatch(setUser(response.data.nickname));
+        console.log("333");
         // alert(response.data.message);
         // console.log(response.data.message);
         // history.replace("/");
@@ -68,6 +69,7 @@ const signupNJ = (id, nickname, pwd, userPwConfirm) => {
     await api
       .post("/api/signup", userInfo)
       .then(function (response) {
+        console.log("response");
         history.push("/login");
         alert(response.data.message);
       })

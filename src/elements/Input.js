@@ -42,7 +42,7 @@ Input.defaultProps = {
   multiLine: false,
   value: "",
   width: "100%",
-  margin: "20px",
+  margin: false,
 };
 
 const EleInput = styled.input`
@@ -50,7 +50,7 @@ const EleInput = styled.input`
   width: ${(props) => props.width};
   padding: 12px 4px;
   box-sizing: border-box;
-  margin: 10px;
+  margin: 10px 20px;
 `;
 
 const EleTextArea = styled.textarea`
