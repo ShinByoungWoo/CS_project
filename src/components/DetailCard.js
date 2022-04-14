@@ -1,6 +1,3 @@
-// 하트는 초기값이 빈하트
-// 삭제 수정 버튼은 본인이 올린 글만 나오게
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -20,23 +17,17 @@ const DetailCard = (props) => {
     dispatch(likeActions.likeCountDB(answer_id));
   });
   
-  const answer_id = props._id; //answer의 Id
-  console.log(props.postLikeCnt);
-  // console.log(answer_id);
+  const answer_id = props._id; 
   const dispatch = useDispatch();
-  // const { history } = props;
   const history = useHistory();
 
-  // console.log(props.countLikes)
   const count = useSelector((state) => state.like);
-  console.log(count);
 
   const [likeState, setLikeState] = React.useState("");
   const [list, setList] = React.useState("");
 
 
   const is_token = localStorage.getItem("token") ? true : false;
-  console.log(is_token);
 
 
   return (

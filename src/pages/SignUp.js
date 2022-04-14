@@ -1,11 +1,7 @@
-// 회원가입 페이지 컴포넌트 (ID, PW, EMAIL 정규표현식)
-
 import React from "react";
 import { useDispatch } from "react-redux";
-
 import { Grid, Text, Input, Button } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
-// import { emailCheck } from "../shared/common";
 import styled from "styled-components";
 
 const SignUp = (props) => {

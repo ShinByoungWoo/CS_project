@@ -1,17 +1,17 @@
-import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import thunk from "redux-thunk";
-import { createBrowserHistory } from "history";
-import { connectRouter } from "connected-react-router";
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import { createBrowserHistory } from 'history';
+import { connectRouter } from 'connected-react-router';
 
-import user from "./modules/user";
-import question from "./modules/question";
-import answer from "./modules/answer";
-import like from "./modules/like";
+import user from './modules/user';
+import question from './modules/question';
+import answer from './modules/answer';
+import like from './modules/like';
 
 export const history = createBrowserHistory();
 
-// root 리듀서를 만들어줘요
-// 나중에 리듀서를 여러개 만들게 되면 여기에 하나씩 추가하기
+// root 리듀서를 만들기
+// 나중에 리듀서를 여러개 만들게 되면 여기에 하나씩 추가
 const rootReducer = combineReducers({
   user: user,
   answer: answer,
@@ -26,14 +26,14 @@ const middlewares = [thunk.withExtraArgument({ history: history })];
 const env = process.env.NODE_ENV;
 
 // 로거(기록 보여줌)
-if (env === "development") {
-  const { logger } = require("redux-logger");
+if (env === 'development') {
+  const { logger } = require('redux-logger');
   middlewares.push(logger);
 }
 
 //redux devtools 설정
 const composeEnhancers =
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
 

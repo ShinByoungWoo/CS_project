@@ -1,4 +1,4 @@
-import { css, keyframes } from "@emotion/react";
+import { css, keyframes } from '@emotion/react';
 
 function Animation1() {
   return (
@@ -12,7 +12,7 @@ function Animation1() {
 }
 
 const floating = keyframes`
-    0 {
+    0% {
         transform: translateY(0);    
     }
     50% {

@@ -1,51 +1,52 @@
-import instance from "../../shared/api";
-import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
-import moment from "moment";
-import { queryByTitle } from "@testing-library/react";
+import instance from '../../shared/api';
+import { createAction, handleActions } from 'redux-actions';
+import { produce } from 'immer';
+import moment from 'moment';
 
 //action
-const ADD_QUESTION = "QUESTION_ADD";
-const LOAD_QUESTION = "QUESTION_LOAD";
-
+const ADD_QUESTION = 'QUESTION_ADD';
+const LOAD_QUESTION = 'QUESTION_LOAD';
 
 //action creator
-const addQuestion = createAction(ADD_QUESTION, ({questions, category}) => ({ questions, category }));
-const loadQuestions = createAction(LOAD_QUESTION, (questions) => ({ questions }));
-
+const addQuestion = createAction(ADD_QUESTION, ({ questions, category }) => ({
+  questions,
+  category,
+}));
+const loadQuestions = createAction(LOAD_QUESTION, (questions) => ({
+  questions,
+}));
 
 // initialState
 const initialState = {
   list: [],
 };
 const initalQuestion = {
-  questionTitle: "",
-  questionDate: moment().format("YYYY-MM-DD"),
-  questionId: "",
-  nickname: "",
+  questionTitle: '',
+  questionDate: moment().format('YYYY-MM-DD'),
+  questionId: '',
+  nickname: '',
 };
 
-//axios
 // 질문카드 서버로 보내는 작업
 export const addQuestionDB = (qTitle, qCate) => {
   return (dispatch, getState, { history }) => {
-    const TOKEN = localStorage.getItem("token");
+    const TOKEN = localStorage.getItem('token');
     instance
       .post(
-        "/api/questions",
+        '/api/questions',
         {
           questionTitle: qTitle,
-          category: qCate
+          category: qCate,
         },
         { headers: { authorization: `Bearer ${TOKEN}` } }
       )
       .then((res) => {
         dispatch(addQuestion());
-        console.log(res)
-        history.push("/");
+        console.log(res);
+        history.push('/');
       })
       .catch((err) => {
-        console.log(err, "질문생성오류");
+        console.log(err, '질문생성오류');
       });
   };
 };
@@ -54,12 +55,12 @@ export const addQuestionDB = (qTitle, qCate) => {
 export const loadQuestionDB = () => {
   return (dispatch, getState, { history }) => {
     instance
-      .get("/api/questions")
+      .get('/api/questions')
       .then((response) => {
         dispatch(loadQuestions(response.data.questions));
       })
       .catch((err) => {
-        console.log(err, "질문 불러오기 오류");
+        console.log(err, '질문 불러오기 오류');
       });
   };
 };
@@ -71,10 +72,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.push(action.payload.questions);
       }),
-    [LOAD_QUESTION]: (state, action) => 
-    produce(state, (draft) => {
-      return { ...state, list: action.payload.questions };
-    }),
+    [LOAD_QUESTION]: (state, action) =>
+      produce(state, (draft) => {
+        return { ...state, list: action.payload.questions };
+      }),
   },
   initialState
 );

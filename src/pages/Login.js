@@ -1,12 +1,6 @@
-// 회원가입 컴포넌트
-
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { FocusEventHandler } from "react";
-// ("./modules/user");
-
 import { getCookie, setCookie, deleteCookie } from "../shared/Cookie";
-
 import { Input, Text, Grid, Button } from "../elements";
 import { actionCreators as userActions } from "../redux/modules/user";
 import styled from "styled-components";

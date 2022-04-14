@@ -2,10 +2,6 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import api from "../../shared/api";
 
-import { setCookie, getCookie, deleteCookie } from "../../shared/Cookie";
-// import { auth } from "../../shared/firebase";
-// import firebase from "firebase/app";
-
 //1. actions (액션 타입 만들기)
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
@@ -42,15 +38,9 @@ const loginNJ = (id, pwd, nickname) => {
         localStorage.setItem("nickname", response.data.nickname);
         localStorage.setItem("token", response.data.token);
         dispatch(setUser(response.data.nickname));
-        console.log("333");
-        // alert(response.data.message);
-        // console.log(response.data.message);
-        // history.replace("/");
         window.location.replace("/");
       })
       .catch((error) => {
-        console.log("444");
-        // console.log(err);
         window.alert(error.response.data.errorMessage);
       });
   };
@@ -58,7 +48,6 @@ const loginNJ = (id, pwd, nickname) => {
 
 const signupNJ = (id, nickname, pwd, userPwConfirm) => {
   return async function (dispatch, getState, { history }) {
-    console.log(history);
     const userInfo = {
       userId: id,
       nickname: nickname,
@@ -69,32 +58,12 @@ const signupNJ = (id, nickname, pwd, userPwConfirm) => {
     await api
       .post("/api/signup", userInfo)
       .then(function (response) {
-        console.log("response");
         history.push("/login");
         alert(response.data.message);
       })
       .catch((error) => {
         window.alert(error.response.data.errorMessage);
       });
-  };
-};
-
-const loginCheckFB = () => {
-  return function (dispatch, getState, { history }) {
-    // auth.onAuthStateChanged((user) => {
-    //   if (user) {
-    //     dispatch(
-    //       setUser({
-    //         user_name: user.displayName,
-    //         user_profile: "",
-    //         id: user.email,
-    //         uid: user.uid,
-    //       })
-    //     );
-    //   } else {
-    //     dispatch(logOut());
-    //   }
-    // });
   };
 };
 
@@ -109,15 +78,13 @@ const logoutNJ = () => {
 };
 
 //4. reducer (리덕스에 저장된 데이터를 변경하는 부분)
-// produce는 immer 사용하기 위한 부분이야
+// produce는 immer 사용하기 위한 부분
 export default handleActions(
   {
     [SET_USER]: (state, action) => {
       produce(state, (draft) => {
-        // setCookie("is_login", "true");
         draft.user = action.payload.user;
         draft.is_login = true;
-        console.log(draft.is_login);
       });
     },
     [LOG_OUT]: (state, action) =>

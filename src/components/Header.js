@@ -1,53 +1,18 @@
-// 로그인 회원가입하기 / 내정보 알림 로그아웃 헤더 컴포넌트
-
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-// import { apiKey } from "../shared/firebase";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { Grid, Text, Button } from "../elements";
 import { history } from "../redux/configureStore";
-import { getCookie, deleteCookie } from "../shared/Cookie";
 
 import styled from "styled-components";
 
-const Header = (props) => {
-  // 토큰값이 있으면, 로그인/로그아웃 화면 보여주는 곳!
+const Header = () => {
   const dispatch = useDispatch();
   const local_token = localStorage.getItem("token") ? true : false;
-  // const local_nickname = localStorage.getItem("nickname");
   const is_login = useSelector((state) => state.user.is_login);
 
   React.useEffect(() => {}, [is_login]);
-
-  // const item = useSelector((state) => state.item.edit_item.contents);
-  // const is_edit = item.id ? true : false;
-  console.log(local_token);
-  console.log(is_login);
-
-  //   // if (local_token) {
-  //   return (
-  //     <Container>
-  //       <Text size="24px" bold>
-  //         지금우리면접은🖊
-  //       </Text>
-  //       {/* <Button
-  //         text="로그아웃"
-  //         _onClick={() => {
-  //           dispatch(userActions.logoutNJ());
-  //         }}
-  //       ></Button> */}
-  //       <Btn
-  //         onClick={() => {
-  //           history.push("/QuestionWrite");
-  //         }}
-  //       >
-  //         <BiEdit size="100px" />
-  //       </Btn>
-  //     </Container>
-  //   );
-  //   // }
-  // };
 
   if (local_token) {
     return (
@@ -65,7 +30,6 @@ const Header = (props) => {
               width="150px"
               text="내정보"
               _onClick={() => {
-                // dispatch(userActions.logoutNJ());
               }}
             ></Button>
             <Button

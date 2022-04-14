@@ -45,7 +45,7 @@ const PostContainer = styled.div`
   flex-wrap: wrap;
   gap: 30px;
   padding: 30px;
-  justify-content: center; /* 수평 가운데 정렬 */
+  justify-content: center; 
 `;
 
 const Btn = styled.div`
