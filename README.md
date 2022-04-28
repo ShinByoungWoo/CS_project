@@ -1,28 +1,27 @@
 # [ 합격자, 정답을 알려줘! ]
 
-## Table of contents
+## 목차
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
 
-## General info
+## 정보
 ### About site
-It's a site for jobseekers want to prepare their interview.
+면접을 준비하려는 구직자들을 위한 사이트 입니다.
 
 ### notion info
 https://www.notion.so/3-SA-efd3be4d46974d05bfaadeb3fe2664dc
 
-### demonstration on youtube
+### 시연영상 youtube
 https://youtu.be/azdj9lhkELk
 
 ### user interface diagram
 ![image](https://user-images.githubusercontent.com/83942678/154436936-dc4d4a3d-5ab9-47cd-b8d9-484bdd2ca146.png)
 
-### api details
+### 상세 api 
 ![image](https://user-images.githubusercontent.com/83942678/154225717-9e312ea2-7eb2-4f88-9ccc-62171cb10ab6.png)
 	
-## Technologies
-Project is created with:
+## 기술스택
 * node.js
 * react
 * mongoDB
@@ -52,8 +51,7 @@ Project is created with:
   }
 ```
 	
-## Setup
-To run this project, install it locally using yarn:
+## 설정
 ```
 "scripts": {
     "start": "react-scripts start",
