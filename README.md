@@ -1,11 +1,11 @@
 # [ 합격자, 정답을 알려줘! ]
 
 ## 목차
-* [General info](#general-info)
-* [Technologies](#technologies)
-* [Setup](#setup)
+* [기본 정보](#기본 정보)
+* [기술 스택](#기술 스택)
+* [설정](#설정)
 
-## 정보
+## 기본 정보
 ### About site
 면접을 준비하려는 구직자들을 위한 사이트 입니다.
 
